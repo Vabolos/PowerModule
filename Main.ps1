@@ -5,3 +5,6 @@ $ScriptPath = "C:\Users\user\Desktop\Script"        # Change this to the path wh
 
 # Path to the folder where the files are located
 $FilesPath = "C:\Users\user\Desktop\Files"          # Change this to the path where the files are located
+
+
+# UNDER CONSTRUCTION
