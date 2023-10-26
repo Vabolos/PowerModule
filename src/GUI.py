@@ -1,4 +1,5 @@
 import tkinter
+from tkinter import Text, Scrollbar
 import tkinter.messagebox
 import customtkinter
 import webbrowser
@@ -13,14 +14,7 @@ class App(customtkinter.CTk):
         # configure window
         self.title("PowerModule Control Panel")
         self.geometry(f"{1100}x{580}")
-
-        # get all console text when a script is executed and print it to the textbox
-        self.console_output = ""   
-        def get_console_output(text: str):
-            self.console_output += text
-            self.textbox.delete("0.0", "end")
-            self.textbox.insert("0.0", self.console_output)
-            self.textbox.see("end")
+        self.resizable(False, False)
 
         # configure window icon
         self.iconbitmap("powermodule.ico")
@@ -61,7 +55,7 @@ class App(customtkinter.CTk):
         self.main_button_1.grid(row=3, column=3, padx=(20, 20), pady=(20, 20), sticky="nsew")
 
         # create textbox
-        self.textbox = customtkinter.CTkTextbox(self, width=250)
+        self.textbox = customtkinter.CTkTextbox(self, width=250, state="disabled")
         self.textbox.grid(row=0, column=1, padx=(20, 0), pady=(20, 0), sticky="nsew")
 
         # create tabview
@@ -79,7 +73,7 @@ class App(customtkinter.CTk):
         self.combobox_1 = customtkinter.CTkComboBox(self.tabview.tab("CTkTabview"),
                                                     values=["Value 1", "Value 2", "Value Long....."])
         self.combobox_1.grid(row=1, column=0, padx=20, pady=(10, 10))
-        self.string_input_button = customtkinter.CTkButton(self.tabview.tab("CTkTabview"), text="Open CTkInputDialog",
+        self.string_input_button = customtkinter.CTkButton(self.tabview.tab("CTkTabview"), text="Console Input Tester",
                                                            command=self.open_input_dialog_event)
         self.string_input_button.grid(row=2, column=0, padx=20, pady=(10, 10))
         self.label_tab_2 = customtkinter.CTkLabel(self.tabview.tab("Tab 2"), text="CTkLabel on Tab 2")
@@ -103,18 +97,13 @@ class App(customtkinter.CTk):
         self.slider_progressbar_frame.grid(row=1, column=1, padx=(20, 0), pady=(20, 0), sticky="nsew")
         self.slider_progressbar_frame.grid_columnconfigure(0, weight=1)
         self.slider_progressbar_frame.grid_rowconfigure(4, weight=1)
-        self.seg_button_1 = customtkinter.CTkSegmentedButton(self.slider_progressbar_frame)
-        self.seg_button_1.grid(row=0, column=0, padx=(20, 10), pady=(10, 10), sticky="ew")
-        self.progressbar_1 = customtkinter.CTkProgressBar(self.slider_progressbar_frame)
-        self.progressbar_1.grid(row=1, column=0, padx=(20, 10), pady=(10, 10), sticky="ew")
+        # put info label in frame
+        self.label_slider_progressbar = customtkinter.CTkLabel(master=self.slider_progressbar_frame, text="Set Time-Sleep (time before next script is executed):", anchor="w", fg_color="transparent", bg_color="transparent", font=customtkinter.CTkFont(size=14, weight="bold"))
+        self.label_slider_progressbar.grid(row=0, column=0, padx=(20, 10), pady=(10, 10), sticky="ew")
         self.progressbar_2 = customtkinter.CTkProgressBar(self.slider_progressbar_frame)
         self.progressbar_2.grid(row=2, column=0, padx=(20, 10), pady=(10, 10), sticky="ew")
         self.slider_1 = customtkinter.CTkSlider(self.slider_progressbar_frame, from_=0, to=1, number_of_steps=4)
         self.slider_1.grid(row=3, column=0, padx=(20, 10), pady=(10, 10), sticky="ew")
-        self.slider_2 = customtkinter.CTkSlider(self.slider_progressbar_frame, orientation="vertical")
-        self.slider_2.grid(row=0, column=1, rowspan=5, padx=(10, 10), pady=(10, 10), sticky="ns")
-        self.progressbar_3 = customtkinter.CTkProgressBar(self.slider_progressbar_frame, orientation="vertical")
-        self.progressbar_3.grid(row=0, column=2, rowspan=5, padx=(10, 20), pady=(10, 10), sticky="ns")
 
         # create scrollable frame
         self.scrollable_frame = customtkinter.CTkScrollableFrame(self, label_text="Modules")
@@ -142,23 +131,19 @@ class App(customtkinter.CTk):
         self.checkbox_3.configure(state="disabled")
         self.checkbox_1.select()
         self.scrollable_frame_switches[0].select()
-        # self.scrollable_frame_switches[4].select()
         self.radio_button_3.configure(state="disabled")
         self.appearance_mode_optionemenu.set("Dark")
         self.scaling_optionemenu.set("100%")
         self.optionmenu_1.set("CTkOptionmenu")
         self.combobox_1.set("CTkComboBox")
         self.slider_1.configure(command=self.progressbar_2.set)
-        self.slider_2.configure(command=self.progressbar_3.set)
-        self.progressbar_1.configure(mode="indeterminnate")
-        self.progressbar_1.start()
-        self.textbox.insert("0.0", "Output:\n\n" + f"{get_console_output}\n\n")
-        self.seg_button_1.configure(values=["CTkSegmentedButton", "Value 2", "Value 3"])
-        self.seg_button_1.set("Value 2")
+        self.textbox.configure(state="normal")
+        self.textbox.insert("0.0", "Output:\n\n" + "hi\n\n")
+        self.textbox.configure(state="disabled")
 
     def open_input_dialog_event(self):
-        dialog = customtkinter.CTkInputDialog(text="Type in a number:", title="CTkInputDialog")
-        print("CTkInputDialog:", dialog.get_input())
+        dialog = customtkinter.CTkInputDialog(text="Type in test text:", title="Console tester")
+        print('\u001B[34m' + "Console:", dialog.get_input())
 
     def change_appearance_mode_event(self, new_appearance_mode: str):
         customtkinter.set_appearance_mode(new_appearance_mode)
@@ -168,11 +153,10 @@ class App(customtkinter.CTk):
         customtkinter.set_widget_scaling(new_scaling_float)
 
     def sidebar_button_event(self):
-        # get all selected modules
-        selected_modules = []
-        for index, switch in enumerate(self.scrollable_frame_switches):
-            if switch.get() == 1:
-                selected_modules.append(modules[index])
+        # open new window with a message box
+        tkinter.messagebox.showinfo("Info", "This feature is not implemented yet.")
+        # dialog = customtkinter.CTkInputDialog(text="Type in test text:", title="Script Executor")
+        # print("Console:", dialog.get_input())
 
     def open_github_repository(self):
         url: str = "https://github.com/Vabolos/PowerModule"
