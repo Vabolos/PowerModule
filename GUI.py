@@ -2,6 +2,7 @@ import tkinter
 import tkinter.messagebox
 import customtkinter
 import webbrowser
+from modules import modules
 
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
@@ -108,13 +109,14 @@ class App(customtkinter.CTk):
         self.progressbar_3.grid(row=0, column=2, rowspan=5, padx=(10, 20), pady=(10, 10), sticky="ns")
 
         # create scrollable frame
-        self.scrollable_frame = customtkinter.CTkScrollableFrame(self, label_text="CTkScrollableFrame")
+        self.scrollable_frame = customtkinter.CTkScrollableFrame(self, label_text="Modules")
         self.scrollable_frame.grid(row=1, column=2, padx=(20, 0), pady=(20, 0), sticky="nsew")
         self.scrollable_frame.grid_columnconfigure(0, weight=1)
         self.scrollable_frame_switches = []
-        for i in range(100):
-            switch = customtkinter.CTkSwitch(master=self.scrollable_frame, text=f"CTkSwitch {i}")
-            switch.grid(row=i, column=0, padx=10, pady=(0, 20))
+
+        for index, module in enumerate(modules):
+            switch = customtkinter.CTkSwitch(master=self.scrollable_frame, text=(module))
+            switch.grid(row=index, column=0, padx=10, pady=(0, 20))
             self.scrollable_frame_switches.append(switch)
 
         # create checkbox and switch frame
