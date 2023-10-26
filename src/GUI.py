@@ -142,7 +142,7 @@ class App(customtkinter.CTk):
         self.checkbox_3.configure(state="disabled")
         self.checkbox_1.select()
         self.scrollable_frame_switches[0].select()
-        self.scrollable_frame_switches[4].select()
+        # self.scrollable_frame_switches[4].select()
         self.radio_button_3.configure(state="disabled")
         self.appearance_mode_optionemenu.set("Dark")
         self.scaling_optionemenu.set("100%")
@@ -168,7 +168,11 @@ class App(customtkinter.CTk):
         customtkinter.set_widget_scaling(new_scaling_float)
 
     def sidebar_button_event(self):
-        tkinter.messagebox.showinfo("Coming soon...", "This feature is not implemented yet.")
+        # get all selected modules
+        selected_modules = []
+        for index, switch in enumerate(self.scrollable_frame_switches):
+            if switch.get() == 1:
+                selected_modules.append(modules[index])
 
     def open_github_repository(self):
         url: str = "https://github.com/Vabolos/PowerModule"

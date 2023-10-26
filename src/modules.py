@@ -1,29 +1,16 @@
-# modules.py
+import subprocess
 
+# List of modules
 modules = [
-    "ActiveDirectory",
-    "AppLocker",
-    "Appx",
-    "AssignedAccess",
-    "BitLocker",
-    "BranchCache",
-    "Certificate",
-    "CimCmdlets",
-    "ConfigCI",
-    "ConfigDefender",
-    "ConfigManager",
-    "ConfigSPLA",
-    "ConfigTroubleshooting",
-    "DirectAccessClientComponents",
-    "Dism",
-    "DnsClient",
-    "DnsServer",
-    "EventTracingManagement",
-    "FailoverClusters",
-    "FileServer",
-    "GroupPolicy",
-    "Hyper-V",
-    "iSCSI",
-    "ISE",
-    "Kds"
+    "testModule",
+    "testModule2",
+    "testModule3",
+    "testModule4",
 ]
+
+# Path to PowerShell scripts folder
+script_folder = "src\\script\\powerModules\\"
+
+for module in modules:
+    # Build the path to the PowerShell script
+    script_path = script_folder + module + ".ps1"
