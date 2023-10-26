@@ -14,6 +14,14 @@ class App(customtkinter.CTk):
         self.title("PowerModule Control Panel")
         self.geometry(f"{1100}x{580}")
 
+        # get all console text when a script is executed and print it to the textbox
+        self.console_output = ""   
+        def get_console_output(text: str):
+            self.console_output += text
+            self.textbox.delete("0.0", "end")
+            self.textbox.insert("0.0", self.console_output)
+            self.textbox.see("end")
+
         # configure window icon
         self.iconbitmap("powermodule.ico")
 
@@ -144,7 +152,7 @@ class App(customtkinter.CTk):
         self.slider_2.configure(command=self.progressbar_3.set)
         self.progressbar_1.configure(mode="indeterminnate")
         self.progressbar_1.start()
-        self.textbox.insert("0.0", "About:\n\n" + "PowerModules is a huge Object-based PowerShell script created to automate almost anything you can find on both Windows Computers & Windows Servers. It was created to make automations easier and more user friendly for both experienced programmers/coders and everybody else.\n\n")
+        self.textbox.insert("0.0", "Output:\n\n" + f"{get_console_output}\n\n")
         self.seg_button_1.configure(values=["CTkSegmentedButton", "Value 2", "Value 3"])
         self.seg_button_1.set("Value 2")
 
