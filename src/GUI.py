@@ -4,6 +4,7 @@ import customtkinter
 import webbrowser
 from modules import modules
 import sys
+import subprocess
 
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
@@ -33,6 +34,22 @@ class App(customtkinter.CTk):
         sys.stdout.write = redirector
         sys.stderr.write = redirector
 
+        def script_path():
+            # List of modules
+            modules = [
+                "testModule",
+                "testModule2",
+                "testModule3",
+                "testModule4",
+            ]
+
+            # Path to PowerShell scripts folder
+            script_folder = "src\\script\\powerModules\\"
+
+            for module in modules:
+                # Build the path to the PowerShell script
+                script_path = script_folder + module + ".ps1"
+
         # create sidebar frame with widgets
         self.sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
         self.sidebar_frame.grid(row=0, column=0, rowspan=4, sticky="nsew")
@@ -52,7 +69,7 @@ class App(customtkinter.CTk):
         self.appearance_mode_optionemenu.grid(row=6, column=0, padx=20, pady=(10, 10))
         self.scaling_label = customtkinter.CTkLabel(self.sidebar_frame, text="UI Scaling:", anchor="w")
         self.scaling_label.grid(row=7, column=0, padx=20, pady=(10, 0))
-        self.scaling_optionemenu = customtkinter.CTkOptionMenu(self.sidebar_frame, values=["80%", "90%", "100%", "110%", "120%"],
+        self.scaling_optionemenu = customtkinter.CTkOptionMenu(self.sidebar_frame, values=["80%", "90%", "100%"],
                                                                command=self.change_scaling_event)
         self.scaling_optionemenu.grid(row=8, column=0, padx=20, pady=(10, 20))
 
@@ -113,6 +130,9 @@ class App(customtkinter.CTk):
         self.progressbar_2.grid(row=2, column=0, padx=(20, 10), pady=(10, 10), sticky="ew")
         self.slider_1 = customtkinter.CTkSlider(self.slider_progressbar_frame, from_=0, to=1, number_of_steps=4)
         self.slider_1.grid(row=3, column=0, padx=(20, 10), pady=(10, 10), sticky="ew")
+        # add bottom text under the slider and progressbar
+        self.label_slider_progressbar_bottom = customtkinter.CTkLabel(master=self.slider_progressbar_frame, text="Pos 1 = 5 seconds\n  Pos 2 = 10 seconds\n  Pos 3 = 15 seconds\n  Pos 4 = 20 seconds", anchor="w", font=customtkinter.CTkFont(size=14, weight="normal"))   
+        self.label_slider_progressbar_bottom.grid(row=4, column=0, padx=(20, 10), pady=(10, 10), sticky="ew")   
 
         # create scrollable frame
         self.scrollable_frame = customtkinter.CTkScrollableFrame(self, label_text="Modules")
@@ -147,7 +167,7 @@ class App(customtkinter.CTk):
         self.combobox_1.set("CTkComboBox")
         self.slider_1.configure(command=self.progressbar_2.set)
         self.textbox.configure(state="normal")
-        self.textbox.insert("0.0", "Output:\n\n" + "UI loaded successfully\n\n" + f"{redirector}\n\n")
+        self.textbox.insert("0.0", "UI loaded successfully!\n\n" + f"{redirector}")
         self.textbox.configure(state="disabled")
 
     def open_input_dialog_event(self):
@@ -165,6 +185,9 @@ class App(customtkinter.CTk):
         # open new window with a message box
         tkinter.messagebox.showinfo("Info", "This feature is not implemented yet.")
         print("unimplemented feature was called")
+        # start powershell and execute selected script(s)
+        script_path = script_path()
+        subprocess.call(["powershell.exe", "-File", script_path])
 
     def open_github_repository(self):
         url: str = "https://github.com/Vabolos/PowerModule"
