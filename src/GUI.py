@@ -147,12 +147,12 @@ class App(customtkinter.CTk):
         self.combobox_1.set("CTkComboBox")
         self.slider_1.configure(command=self.progressbar_2.set)
         self.textbox.configure(state="normal")
-        self.textbox.insert("0.0", "Output:\n\n" + f"{redirector}\n\n")
+        self.textbox.insert("0.0", "Output:\n\n" + "UI loaded successfully\n\n" + f"{redirector}\n\n")
         self.textbox.configure(state="disabled")
 
     def open_input_dialog_event(self):
         dialog = customtkinter.CTkInputDialog(text="Type in test text:", title="Console tester")
-        print('\u001B[34m' + "Console:", dialog.get_input())
+        print("[Console]", dialog.get_input())
 
     def change_appearance_mode_event(self, new_appearance_mode: str):
         customtkinter.set_appearance_mode(new_appearance_mode)
@@ -164,15 +164,17 @@ class App(customtkinter.CTk):
     def sidebar_button_event(self):
         # open new window with a message box
         tkinter.messagebox.showinfo("Info", "This feature is not implemented yet.")
+        print("unimplemented feature was called")
 
     def open_github_repository(self):
         url: str = "https://github.com/Vabolos/PowerModule"
         webbrowser.open(url)
+        print("Opened GitHub repository in browser.")
 
     def open_discord_server(self):
         url: str = "https://discord.gg/HuP3gjrRzb"
         webbrowser.open(url)
-
+        print("Opened Discord server in browser or app.")
 
 if __name__ == "__main__":
     app = App()
