@@ -1,9 +1,9 @@
 import tkinter
-from tkinter import Text, Scrollbar
 import tkinter.messagebox
 import customtkinter
 import webbrowser
 from modules import modules
+import sys
 
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
@@ -23,6 +23,15 @@ class App(customtkinter.CTk):
         self.grid_columnconfigure(1, weight=1)
         self.grid_columnconfigure((2, 3), weight=0)
         self.grid_rowconfigure((0, 1, 2), weight=1)
+
+        # redirect vsc terminal output to textbox
+        def redirector(input_str):
+            self.textbox.configure(state="normal")
+            self.textbox.insert("end", input_str)
+            self.textbox.configure(state="disabled")
+
+        sys.stdout.write = redirector
+        sys.stderr.write = redirector
 
         # create sidebar frame with widgets
         self.sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
@@ -98,7 +107,7 @@ class App(customtkinter.CTk):
         self.slider_progressbar_frame.grid_columnconfigure(0, weight=1)
         self.slider_progressbar_frame.grid_rowconfigure(4, weight=1)
         # put info label in frame
-        self.label_slider_progressbar = customtkinter.CTkLabel(master=self.slider_progressbar_frame, text="Set Time-Sleep (time before next script is executed):", anchor="w", fg_color="transparent", bg_color="transparent", font=customtkinter.CTkFont(size=14, weight="bold"))
+        self.label_slider_progressbar = customtkinter.CTkLabel(master=self.slider_progressbar_frame, text="Set Time-Sleep (time before next script is executed):\nRecommended = 10 seconds", anchor="w", fg_color="transparent", bg_color="transparent", font=customtkinter.CTkFont(size=14, weight="bold"))
         self.label_slider_progressbar.grid(row=0, column=0, padx=(20, 10), pady=(10, 10), sticky="ew")
         self.progressbar_2 = customtkinter.CTkProgressBar(self.slider_progressbar_frame)
         self.progressbar_2.grid(row=2, column=0, padx=(20, 10), pady=(10, 10), sticky="ew")
@@ -138,7 +147,7 @@ class App(customtkinter.CTk):
         self.combobox_1.set("CTkComboBox")
         self.slider_1.configure(command=self.progressbar_2.set)
         self.textbox.configure(state="normal")
-        self.textbox.insert("0.0", "Output:\n\n" + "hi\n\n")
+        self.textbox.insert("0.0", "Output:\n\n" + f"{redirector}\n\n")
         self.textbox.configure(state="disabled")
 
     def open_input_dialog_event(self):
@@ -155,8 +164,6 @@ class App(customtkinter.CTk):
     def sidebar_button_event(self):
         # open new window with a message box
         tkinter.messagebox.showinfo("Info", "This feature is not implemented yet.")
-        # dialog = customtkinter.CTkInputDialog(text="Type in test text:", title="Script Executor")
-        # print("Console:", dialog.get_input())
 
     def open_github_repository(self):
         url: str = "https://github.com/Vabolos/PowerModule"
