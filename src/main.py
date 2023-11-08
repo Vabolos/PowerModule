@@ -1,7 +1,7 @@
 import tkinter
 import tkinter.messagebox
 import customtkinter
-from modules import modules
+from components.sidebarComponent import Sidebar
 
 
 # Modes: "System" (standard), "Dark", "Light"
@@ -27,7 +27,7 @@ class App(customtkinter.CTk):
         self.grid_rowconfigure((0, 1, 2), weight=1)
 
         # call sidebar class
-        # Sidebar.Sidebar(self)
+        self.sidebar = Sidebar(app)
 
         # create sidebar frame with widgets
         self.sidebar_frame = customtkinter.CTkFrame(
@@ -147,7 +147,7 @@ class App(customtkinter.CTk):
         self.scrollable_frame.grid_columnconfigure(0, weight=1)
         self.scrollable_frame_switches = []
 
-        for index, module in enumerate(modules):
+        for index, module in enumerate():
             switch = customtkinter.CTkSwitch(
                 master=self.scrollable_frame, text=(module))
             switch.grid(row=index, column=0, padx=10, pady=(0, 20))
