@@ -23,10 +23,9 @@ class App(customtkinter.CTk):
         # configure window icon
         self.iconbitmap("powermodule.ico")
 
-        # configure grid layout (4x4)
+        # configure grid layout (3x3)
         self.grid_columnconfigure(1, weight=1)
-        self.grid_columnconfigure((2, 3), weight=0)
-        self.grid_rowconfigure((0, 1, 2), weight=1)
+        self.grid_rowconfigure(1, weight=1)
 
         # redirect vsc terminal output to textbox
         def redirector(input_str):
@@ -36,22 +35,6 @@ class App(customtkinter.CTk):
 
         sys.stdout.write = redirector
         sys.stderr.write = redirector
-
-        def script_path():
-            # List of modules
-            modules = [
-                "testModule",
-                "testModule2",
-                "testModule3",
-                "testModule4",
-            ]
-
-            # Path to PowerShell scripts folder
-            script_folder = "src\\script\\powerModules\\"
-
-            for module in modules:
-                # Build the path to the PowerShell script
-                script_path = script_folder + module + ".ps1"
 
         # create sidebar frame with widgets
         self.sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
@@ -84,19 +67,18 @@ class App(customtkinter.CTk):
         self.main_button_1.grid(row=3, column=3, padx=(20, 20), pady=(20, 20), sticky="nsew")
 
         # create textbox
-        self.textbox = customtkinter.CTkTextbox(self, width=250, state="disabled")
-        self.textbox.grid(row=0, column=1, padx=(20, 0), pady=(20, 0), sticky="nsew")
+        self.textbox = customtkinter.CTkTextbox(self, width=450, state="disabled")
+        self.textbox.grid(row=0, column=1, columnspan=2,  padx=(20, 0), pady=(20, 0), sticky="nsew")
 
         # create tabview
         self.tabview = customtkinter.CTkTabview(self, width=250)
-        self.tabview.grid(row=0, column=2, padx=(20, 0), pady=(20, 0), sticky="nsew")
+        self.tabview.grid(row=0, column=3, padx=(20, 20), pady=(20, 0), sticky="nsew")
         self.tabview.add("Actions")
         self.tabview.add("Tab 2")
         self.tabview.add("Tab 3")
         self.tabview.tab("Actions").grid_columnconfigure(0, weight=1)  # configure grid of individual tabs
         self.tabview.tab("Tab 2").grid_columnconfigure(0, weight=1)
 
-        # button clear console
         self.clear_console_button = customtkinter.CTkButton(self.tabview.tab("Actions"), text="Clear console",
                                                             command=lambda: clear_console(self))
         self.clear_console_button.grid(row=1, column=0, padx=20, pady=(10, 10))
@@ -108,19 +90,6 @@ class App(customtkinter.CTk):
         self.string_input_button.grid(row=2, column=0, padx=20, pady=(10, 10))
         self.label_tab_2 = customtkinter.CTkLabel(self.tabview.tab("Tab 2"), text="CTkLabel on Tab 2")
         self.label_tab_2.grid(row=0, column=0, padx=20, pady=20)
-
-        # create radiobutton frame
-        self.radiobutton_frame = customtkinter.CTkFrame(self)
-        self.radiobutton_frame.grid(row=0, column=3, padx=(20, 20), pady=(20, 0), sticky="nsew")
-        self.radio_var = tkinter.IntVar(value=0)
-        self.label_radio_group = customtkinter.CTkLabel(master=self.radiobutton_frame, text="CTkRadioButton Group:")
-        self.label_radio_group.grid(row=0, column=2, columnspan=1, padx=10, pady=10, sticky="")
-        self.radio_button_1 = customtkinter.CTkRadioButton(master=self.radiobutton_frame, variable=self.radio_var, value=0)
-        self.radio_button_1.grid(row=1, column=2, pady=10, padx=20, sticky="n")
-        self.radio_button_2 = customtkinter.CTkRadioButton(master=self.radiobutton_frame, variable=self.radio_var, value=1)
-        self.radio_button_2.grid(row=2, column=2, pady=10, padx=20, sticky="n")
-        self.radio_button_3 = customtkinter.CTkRadioButton(master=self.radiobutton_frame, variable=self.radio_var, value=2)
-        self.radio_button_3.grid(row=3, column=2, pady=10, padx=20, sticky="n")
 
         # create slider and progressbar frame
         self.slider_progressbar_frame = customtkinter.CTkFrame(self, fg_color="transparent")
@@ -136,11 +105,11 @@ class App(customtkinter.CTk):
         self.slider_1.grid(row=3, column=0, padx=(20, 10), pady=(10, 10), sticky="ew")
         # add bottom text under the slider and progressbar
         self.label_slider_progressbar_bottom = customtkinter.CTkLabel(master=self.slider_progressbar_frame, text="Pos 1 = 5 seconds\n  Pos 2 = 10 seconds\n  Pos 3 = 15 seconds\n  Pos 4 = 20 seconds", anchor="w", font=customtkinter.CTkFont(size=14, weight="normal"))   
-        self.label_slider_progressbar_bottom.grid(row=4, column=0, padx=(20, 10), pady=(10, 10), sticky="ew")   
+        self.label_slider_progressbar_bottom.grid(row=4, column=0, columnspan=2, padx=(20, 10), pady=(10, 10), sticky="ew")   
 
         # create scrollable frame
         self.scrollable_frame = customtkinter.CTkScrollableFrame(self, label_text="Modules")
-        self.scrollable_frame.grid(row=1, column=2, padx=(20, 0), pady=(20, 0), sticky="nsew")
+        self.scrollable_frame.grid(row=1, column=3, padx=(20, 20), pady=(20, 0), sticky="nsew")
         self.scrollable_frame.grid_columnconfigure(0, weight=1)
         self.scrollable_frame_switches = []
 
@@ -149,22 +118,9 @@ class App(customtkinter.CTk):
             switch.grid(row=index, column=0, padx=10, pady=(0, 20))
             self.scrollable_frame_switches.append(switch)
 
-        # create checkbox and switch frame
-        self.checkbox_slider_frame = customtkinter.CTkFrame(self)
-        self.checkbox_slider_frame.grid(row=1, column=3, padx=(20, 20), pady=(20, 0), sticky="nsew")
-        self.checkbox_1 = customtkinter.CTkCheckBox(master=self.checkbox_slider_frame)
-        self.checkbox_1.grid(row=1, column=0, pady=(20, 0), padx=20, sticky="n")
-        self.checkbox_2 = customtkinter.CTkCheckBox(master=self.checkbox_slider_frame)
-        self.checkbox_2.grid(row=2, column=0, pady=(20, 0), padx=20, sticky="n")
-        self.checkbox_3 = customtkinter.CTkCheckBox(master=self.checkbox_slider_frame)
-        self.checkbox_3.grid(row=3, column=0, pady=20, padx=20, sticky="n")
-
         # set default values
         self.sidebar_button_3.configure(state="disabled", text="Coming soon...")
-        self.checkbox_3.configure(state="disabled")
-        self.checkbox_1.select()
         self.scrollable_frame_switches[0].select()
-        self.radio_button_3.configure(state="disabled")
         self.appearance_mode_optionemenu.set("Dark")
         self.scaling_optionemenu.set("100%")
         self.slider_1.configure(command=self.progressbar_2.set)
