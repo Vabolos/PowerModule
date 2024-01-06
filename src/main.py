@@ -11,6 +11,7 @@ from components.CopyToBoardButton import copy_to_clipboard
 from components.executeButton import sidebar_button_event_scriptExe
 from components.discordButton import open_discord_server
 from components.githubButton import open_github_repository
+from components.openExplorerButton import open_explorer
 
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
@@ -35,9 +36,7 @@ class App(customtkinter.CTk):
             self.textbox.configure(state="normal")
             self.textbox.insert("end", input_str)
             self.textbox.configure(state="disabled")
-
         sys.stdout.write = redirector
-        sys.stderr.write = redirector
 
         # create sidebar frame with widgets
         self.sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
@@ -91,6 +90,8 @@ class App(customtkinter.CTk):
         self.string_input_button = customtkinter.CTkButton(self.tabview.tab("Actions"), text="Console Input Tester",
                                                            command=lambda: open_input_dialog_event(self))
         self.string_input_button.grid(row=2, column=0, padx=20, pady=(10, 10))
+        self.string_input_button = customtkinter.CTkButton(self.tabview.tab("Actions"), text="Open file explorer", command=lambda: open_explorer(self))
+        self.string_input_button.grid(row=5, column=0, padx=20, pady=(10, 10))
         self.label_tab_2 = customtkinter.CTkLabel(self.tabview.tab("Tab 2"), text="CTkLabel on Tab 2")
         self.label_tab_2.grid(row=0, column=0, padx=20, pady=20)
 
@@ -128,7 +129,7 @@ class App(customtkinter.CTk):
         self.scaling_optionemenu.set("100%")
         self.slider_1.configure(command=self.progressbar_2.set)
         self.textbox.configure(state="normal")
-        self.textbox.insert("0.0", "UI loaded successfully!\n\n" + f"{redirector}")
+        self.textbox.insert("0.0", "Welcome to PowerModule!\n\n")
         self.textbox.configure(state="disabled")
 
     def change_appearance_mode_event(self, new_appearance_mode: str):
