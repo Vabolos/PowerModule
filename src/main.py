@@ -1,13 +1,16 @@
 import tkinter
 import tkinter.messagebox
 import customtkinter
-import webbrowser
 from modules import modules
 import sys
-import subprocess
 
 # components
-from components.buttons import clear_console, sidebar_button_event_scriptExe, open_github_repository, open_discord_server, open_input_dialog_event, copy_to_clipboard
+from components.ClearConsoleButton import clear_console
+from components.ConsoleInputButton import open_input_dialog_event
+from components.CopyToBoardButton import copy_to_clipboard
+from components.executeButton import sidebar_button_event_scriptExe
+from components.discordButton import open_discord_server
+from components.githubButton import open_github_repository
 
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
