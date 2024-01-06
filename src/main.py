@@ -5,13 +5,13 @@ from modules import modules
 import sys
 
 # components
-from components.ClearConsoleButton import clear_console
-from components.ConsoleInputButton import open_input_dialog_event
-from components.CopyToBoardButton import copy_to_clipboard
-from components.executeButton import sidebar_button_event_scriptExe
-from components.discordButton import open_discord_server
-from components.githubButton import open_github_repository
-from components.openExplorerButton import open_explorer
+from components.buttons.ClearConsoleButton import clear_console
+from components.buttons.ConsoleInputButton import open_input_dialog_event
+from components.buttons.CopyToBoardButton import copy_to_clipboard
+from components.buttons.executeButton import sidebar_button_event_scriptExe
+from components.buttons.discordButton import open_discord_server
+from components.buttons.githubButton import open_github_repository
+from components.buttons.openExplorerButton import open_explorer
 
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
@@ -76,10 +76,7 @@ class App(customtkinter.CTk):
         self.tabview = customtkinter.CTkTabview(self, width=250)
         self.tabview.grid(row=0, column=3, padx=(20, 20), pady=(20, 0), sticky="nsew")
         self.tabview.add("Actions")
-        self.tabview.add("Tab 2")
-        self.tabview.add("Tab 3")
-        self.tabview.tab("Actions").grid_columnconfigure(0, weight=1)  # configure grid of individual tabs
-        self.tabview.tab("Tab 2").grid_columnconfigure(0, weight=1)
+        self.tabview.tab("Actions").grid_columnconfigure(0, weight=1)
 
         self.clear_console_button = customtkinter.CTkButton(self.tabview.tab("Actions"), text="Clear console",
                                                             command=lambda: clear_console(self))
@@ -92,9 +89,6 @@ class App(customtkinter.CTk):
         self.string_input_button.grid(row=2, column=0, padx=20, pady=(10, 10))
         self.string_input_button = customtkinter.CTkButton(self.tabview.tab("Actions"), text="Open file explorer", command=lambda: open_explorer(self))
         self.string_input_button.grid(row=5, column=0, padx=20, pady=(10, 10))
-        self.label_tab_2 = customtkinter.CTkLabel(self.tabview.tab("Tab 2"), text="CTkLabel on Tab 2")
-        self.label_tab_2.grid(row=0, column=0, padx=20, pady=20)
-
         # create slider and progressbar frame
         self.slider_progressbar_frame = customtkinter.CTkFrame(self, fg_color="transparent")
         self.slider_progressbar_frame.grid(row=1, column=1, padx=(20, 0), pady=(20, 0), sticky="nsew")
