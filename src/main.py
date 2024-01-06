@@ -1,7 +1,6 @@
 import tkinter
 import tkinter.messagebox
 import customtkinter
-from modules import modules
 import sys
 
 # components
@@ -12,6 +11,14 @@ from components.buttons.executeButton import sidebar_button_event_scriptExe
 from components.buttons.discordButton import open_discord_server
 from components.buttons.githubButton import open_github_repository
 from components.buttons.openExplorerButton import open_explorer
+
+# scripts
+from components.scriptcalls.getAdGroupMember import getAdGroupMember
+from components.scriptcalls.getGroupsMemberOf import getGroupsMemberOf
+from components.scriptcalls.exportCsv import exportCSV
+from components.scriptcalls.copyMemberOf import copyMemberOf
+from components.scriptcalls.getPasswordStatus import getPasswordStatus
+
 
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
@@ -93,35 +100,23 @@ class App(customtkinter.CTk):
         self.slider_progressbar_frame = customtkinter.CTkFrame(self, fg_color="transparent")
         self.slider_progressbar_frame.grid(row=1, column=1, padx=(20, 0), pady=(20, 0), sticky="nsew")
         self.slider_progressbar_frame.grid_columnconfigure(0, weight=1)
-        self.slider_progressbar_frame.grid_rowconfigure(4, weight=1)
-        # put info label in frame
-        self.label_slider_progressbar = customtkinter.CTkLabel(master=self.slider_progressbar_frame, text="Set Time-Sleep (time before next script is executed):\nRecommended = 10 seconds", anchor="w", fg_color="transparent", bg_color="transparent", font=customtkinter.CTkFont(size=14, weight="bold"))
-        self.label_slider_progressbar.grid(row=0, column=0, padx=(20, 10), pady=(10, 10), sticky="ew")
-        self.progressbar_2 = customtkinter.CTkProgressBar(self.slider_progressbar_frame)
-        self.progressbar_2.grid(row=2, column=0, padx=(20, 10), pady=(10, 10), sticky="ew")
-        self.slider_1 = customtkinter.CTkSlider(self.slider_progressbar_frame, from_=0, to=1, number_of_steps=4)
-        self.slider_1.grid(row=3, column=0, padx=(20, 10), pady=(10, 10), sticky="ew")
-        # add bottom text under the slider and progressbar
-        self.label_slider_progressbar_bottom = customtkinter.CTkLabel(master=self.slider_progressbar_frame, text="Pos 1 = 5 seconds\n  Pos 2 = 10 seconds\n  Pos 3 = 15 seconds\n  Pos 4 = 20 seconds", anchor="w", font=customtkinter.CTkFont(size=14, weight="normal"))   
-        self.label_slider_progressbar_bottom.grid(row=4, column=0, columnspan=2, padx=(20, 10), pady=(10, 10), sticky="ew")   
+        self.slider_progressbar_frame.grid_rowconfigure(4, weight=1) 
 
         # create scrollable frame
-        self.scrollable_frame = customtkinter.CTkScrollableFrame(self, label_text="Modules")
-        self.scrollable_frame.grid(row=1, column=3, padx=(20, 20), pady=(20, 0), sticky="nsew")
+        self.scrollable_frame = customtkinter.CTkScrollableFrame(self, label_text="Scripts")
+        self.scrollable_frame.grid(row=1, column=3, padx=(20, 20), pady=(20, 0), sticky="nwes")
         self.scrollable_frame.grid_columnconfigure(0, weight=1)
         self.scrollable_frame_switches = []
-
-        for index, module in enumerate(modules):
-            switch = customtkinter.CTkSwitch(master=self.scrollable_frame, text=(module))
-            switch.grid(row=index, column=0, padx=10, pady=(0, 20))
-            self.scrollable_frame_switches.append(switch)
+        customtkinter.CTkButton(master=self.scrollable_frame, text="Get Members AD Group", command=lambda: getAdGroupMember(self)).grid(row=0, column=0, padx=20, pady=(5, 10))
+        customtkinter.CTkButton(master=self.scrollable_frame, text="Get groups of member", command=lambda: getGroupsMemberOf(self)).grid(row=1, column=0, padx=20, pady=(10, 10))
+        customtkinter.CTkButton(master=self.scrollable_frame, text="Copy user permissions", command=lambda: copyMemberOf(self)).grid(row=2, column=0, padx=20, pady=(10, 10))
+        customtkinter.CTkButton(master=self.scrollable_frame, text="Export to CSV", command=lambda: exportCSV(self)).grid(row=3, column=0, padx=20, pady=(10, 10))
+        customtkinter.CTkButton(master=self.scrollable_frame, text="Get Password Status", command=lambda: getPasswordStatus(self)).grid(row=4, column=0, padx=20, pady=(10, 10))
 
         # set default values
         self.sidebar_button_3.configure(state="disabled", text="Coming soon...")
-        self.scrollable_frame_switches[0].select()
         self.appearance_mode_optionemenu.set("Dark")
         self.scaling_optionemenu.set("100%")
-        self.slider_1.configure(command=self.progressbar_2.set)
         self.textbox.configure(state="normal")
         self.textbox.insert("0.0", "Welcome to PowerModule!\n\n")
         self.textbox.configure(state="disabled")
