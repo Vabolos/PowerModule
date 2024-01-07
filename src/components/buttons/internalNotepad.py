@@ -6,7 +6,6 @@ def save_text_locally(textbox):
     text_to_save = textbox.get("1.0", "end-1c")  # Get text from the textbox
     with open("saved_text.txt", "w") as file:
         file.write(text_to_save)
-    tkinter.messagebox.showinfo("Save Successful", "Text saved locally as 'saved_text.txt'.")
     return
 
 def load_saved_text(textbox):
@@ -15,25 +14,10 @@ def load_saved_text(textbox):
             saved_text = file.read()
             textbox.insert("1.0", saved_text)  # Insert the saved text into the textbox
     except FileNotFoundError:
-        print("No saved text file found.")
-
-def delete_saved_text(notepad):
-    try:
-        os.remove("saved_text.txt")
-        tkinter.messagebox.showinfo("Delete Successful", "Saved text file deleted.")
-        notepad.destroy()  # Close only the Notepad window after deleting the file
-    except FileNotFoundError:
-        tkinter.messagebox.showerror("Delete Failed", "No saved text file found.")
-
-def close_notepad(notepad, textbox):
-    # Function to be executed when attempting to close the window
-    result = tkinter.messagebox.askyesnocancel("Close Notepad", "Do you want to save and quit?")
-
-    if result:  # Save and quit
-        save_text_locally(textbox)
-        notepad.quit()
-    elif result is False:  # Keep editing (False means 'No' was clicked)
         return
+
+def clear_notepad(textbox):
+    textbox.delete("1.0", "end")  # Clear all content from the textbox
 
 def open_notepad(self):
     notepad = customtkinter.CTk()
@@ -49,11 +33,16 @@ def open_notepad(self):
 
     load_saved_text(textbox)
 
-    notepad.protocol("WM_DELETE_WINDOW", lambda: close_notepad(notepad, textbox))
+    def on_close():
+        save_text_locally(textbox)
+        notepad.destroy()
 
-    # Delete button
-    delete_button = customtkinter.CTkButton(notepad, text="Delete", command=lambda: delete_saved_text(notepad))
-    delete_button.grid(row=1, column=0, padx=(20, 10), pady=(0, 20))
+    # Clear Notepad button
+    clear_button = customtkinter.CTkButton(notepad, text="Clear Notepad", command=lambda: clear_notepad(textbox))
+    clear_button.grid(row=1, column=0, padx=(20, 10), pady=(0, 20))
+
+    # Bind the closing event of the window to the on_close function
+    notepad.protocol("WM_DELETE_WINDOW", on_close)
 
     notepad.mainloop()
     notepad.quit()
