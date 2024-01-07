@@ -2,6 +2,7 @@ import tkinter
 import tkinter.messagebox
 import customtkinter
 import sys
+import subprocess
 
 # components
 from components.buttons.ClearConsoleButton import clear_console
@@ -28,7 +29,7 @@ class App(customtkinter.CTk):
 
         # configure window
         self.title("PowerModule Control Panel")
-        self.geometry(f"{1100}x{580}")
+        self.geometry(f"{1200}x{680}")
         self.resizable(False, False)
 
         # configure window icon
@@ -68,52 +69,64 @@ class App(customtkinter.CTk):
                                                                command=self.change_scaling_event)
         self.scaling_optionemenu.grid(row=8, column=0, padx=20, pady=(10, 20))
 
-        # create main entry and button
-        self.entry = customtkinter.CTkEntry(self, placeholder_text="Search...")
+        # input field
+        self.entry = customtkinter.CTkEntry(self, placeholder_text="> _", width=30)
         self.entry.grid(row=3, column=1, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
+        self.entry.bind("<Return>", self.execute_command)
 
         self.main_button_1 = customtkinter.CTkButton(self.master, command=lambda: sidebar_button_event_scriptExe(self), text="Execute script")
         self.main_button_1.grid(row=3, column=3, padx=(20, 20), pady=(20, 20), sticky="nsew")
 
-        # create textbox
+        # console
         self.textbox = customtkinter.CTkTextbox(self, width=450, state="disabled")
-        self.textbox.grid(row=0, column=1, columnspan=2,  padx=(20, 0), pady=(20, 0), sticky="nsew")
+        self.textbox.grid(row=0, rowspan=3, column=1, columnspan=2, padx=(20, 0), pady=(20, 0), sticky="nsew")
 
-        # create tabview
+        # create script tabview
         self.tabview = customtkinter.CTkTabview(self, width=250)
-        self.tabview.grid(row=0, column=3, padx=(20, 20), pady=(20, 0), sticky="nsew")
+        self.tabview.grid(row=1, column=3, padx=(20, 20), pady=(10, 0), sticky="nsew")
+
+        # Adding "Machine" tab
+        self.tabview.add("Machine")
+        self.tabview.tab("Machine").grid_columnconfigure(0, weight=1)
+
+        # Adding "Server" tab
+        self.tabview.add("Server")
+        self.tabview.tab("Server").grid_columnconfigure(0, weight=1)
+
+        # Adding existing "Active Directory Manager" tab
+        self.tabview.add("ADM")
+        self.tabview.tab("ADM").grid_columnconfigure(0, weight=1)
+        
+
+        # Script buttons
+        customtkinter.CTkButton(master=self.tabview.tab("ADM"), text="Get Members AD Group", 
+                                command=lambda: getAdGroupMember(self)).grid(row=0, column=0, padx=20, pady=(10, 5))
+        customtkinter.CTkButton(master=self.tabview.tab("ADM"), text="Get Groups Member Of", 
+                                command=lambda: getGroupsMemberOf(self)).grid(row=1, column=0, padx=20, pady=5)
+        customtkinter.CTkButton(master=self.tabview.tab("ADM"), text="Export CSV", 
+                                command=lambda: exportCSV(self)).grid(row=2, column=0, padx=20, pady=5)
+        customtkinter.CTkButton(master=self.tabview.tab("ADM"), text="Copy Member Of", 
+                                command=lambda: copyMemberOf(self)).grid(row=3, column=0, padx=20, pady=5)
+        customtkinter.CTkButton(master=self.tabview.tab("ADM"), text="Get Password Status", 
+                                command=lambda: getPasswordStatus(self)).grid(row=4, column=0, padx=20, pady=(5, 20))
+
+        # create actions tabview
+        self.tabview = customtkinter.CTkTabview(self, width=250)
+        self.tabview.grid(row=2, column=3, padx=(20, 20), pady=(10, 0), sticky="nsew")
         self.tabview.add("Actions")
         self.tabview.tab("Actions").grid_columnconfigure(0, weight=1)
 
-        self.clear_console_button = customtkinter.CTkButton(self.tabview.tab("Actions"), text="Clear console",
-                                                            command=lambda: clear_console(self))
-        self.clear_console_button.grid(row=1, column=0, padx=20, pady=(10, 10))
-        self.copy_to_clipboard_button = customtkinter.CTkButton(self.tabview.tab("Actions"), text="Copy to clipboard",
-                                                                command=lambda: copy_to_clipboard(self))
-        self.copy_to_clipboard_button.grid(row=0, column=0, padx=20, pady=(10, 10))
-        self.string_input_button = customtkinter.CTkButton(self.tabview.tab("Actions"), text="Console Input Tester",
-                                                           command=lambda: open_input_dialog_event(self))
-        self.string_input_button.grid(row=2, column=0, padx=20, pady=(10, 10))
-        self.string_input_button = customtkinter.CTkButton(self.tabview.tab("Actions"), text="Open file explorer", command=lambda: open_explorer(self))
-        self.string_input_button.grid(row=5, column=0, padx=20, pady=(10, 10))
-        # create slider and progressbar frame
-        self.slider_progressbar_frame = customtkinter.CTkFrame(self, fg_color="transparent")
-        self.slider_progressbar_frame.grid(row=1, column=1, padx=(20, 0), pady=(20, 0), sticky="nsew")
-        self.slider_progressbar_frame.grid_columnconfigure(0, weight=1)
-        self.slider_progressbar_frame.grid_rowconfigure(4, weight=1) 
+        # Action buttons
+        customtkinter.CTkButton(master=self.tabview.tab("Actions"), text="Clear console", 
+                                command=lambda: clear_console(self)).grid(row=1, column=0, padx=20, pady=(5, 10))
+        customtkinter.CTkButton(master=self.tabview.tab("Actions"), text="Copy to clipboard", 
+                                command=lambda: copy_to_clipboard(self)).grid(row=0, column=0, padx=20, pady=(5, 10))
+        customtkinter.CTkButton(master=self.tabview.tab("Actions"), text="Console Input Tester", 
+                                command=lambda: open_input_dialog_event(self)).grid(row=2, column=0, padx=20, pady=(5, 10))
+        customtkinter.CTkButton(master=self.tabview.tab("Actions"), text="Open file explorer", 
+                                command=lambda: open_explorer(self)).grid(row=3, column=0, padx=20, pady=(5, 10))
 
-        # create scrollable frame
-        self.scrollable_frame = customtkinter.CTkScrollableFrame(self, label_text="Scripts")
-        self.scrollable_frame.grid(row=1, column=3, padx=(20, 20), pady=(20, 0), sticky="nwes")
-        self.scrollable_frame.grid_columnconfigure(0, weight=1)
-        self.scrollable_frame_switches = []
-        customtkinter.CTkButton(master=self.scrollable_frame, text="Get Members AD Group", command=lambda: getAdGroupMember(self)).grid(row=0, column=0, padx=20, pady=(5, 10))
-        customtkinter.CTkButton(master=self.scrollable_frame, text="Get groups of member", command=lambda: getGroupsMemberOf(self)).grid(row=1, column=0, padx=20, pady=(10, 10))
-        customtkinter.CTkButton(master=self.scrollable_frame, text="Copy user permissions", command=lambda: copyMemberOf(self)).grid(row=2, column=0, padx=20, pady=(10, 10))
-        customtkinter.CTkButton(master=self.scrollable_frame, text="Export to CSV", command=lambda: exportCSV(self)).grid(row=3, column=0, padx=20, pady=(10, 10))
-        customtkinter.CTkButton(master=self.scrollable_frame, text="Get Password Status", command=lambda: getPasswordStatus(self)).grid(row=4, column=0, padx=20, pady=(10, 10))
-
-        # set default values
+        # default values
         self.sidebar_button_3.configure(state="disabled", text="Coming soon...")
         self.appearance_mode_optionemenu.set("Dark")
         self.scaling_optionemenu.set("100%")
@@ -127,6 +140,21 @@ class App(customtkinter.CTk):
     def change_scaling_event(self, new_scaling: str):
         new_scaling_float = int(new_scaling.replace("%", "")) / 100
         customtkinter.set_widget_scaling(new_scaling_float)
+
+    def execute_command(self, event):
+        command = self.entry.get()
+
+        try:
+            output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT, universal_newlines=True)
+        except subprocess.CalledProcessError as e:
+            output = e.output
+
+        self.textbox.configure(state="normal")
+        self.textbox.insert("end", f"{command}\n")
+        self.textbox.insert("end", output)
+        self.textbox.configure(state="disabled")
+
+        self.entry.delete(0, "end")
 
 if __name__ == "__main__":
     app = App()
