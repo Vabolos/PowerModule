@@ -12,6 +12,7 @@ from components.buttons.discordButton import open_discord_server
 from components.buttons.githubButton import open_github_repository
 from components.buttons.openExplorerButton import open_explorer
 from components.buttons.internalNotepad import open_notepad
+from components.buttons.openPowershellButton import open_powershell
 
 from components.consoleEntry import AppFunctions
 
@@ -132,6 +133,8 @@ class App(customtkinter.CTk):
                                 command=lambda: open_explorer(self)).grid(row=3, column=0, padx=20, pady=(5, 10))
         customtkinter.CTkButton(master=self.tabview.tab("Actions"), text="Open notepad",
                                 command=lambda: open_notepad(self)).grid(row=4, column=0, padx=20, pady=(5, 10))
+        customtkinter.CTkButton(master=self.tabview.tab("Actions"), text="Open powershell",
+                                command=lambda: open_powershell()).grid(row=5, column=0, padx=20, pady=(5, 10))
 
         # default values
         self.sidebar_button_3.configure(state="disabled", text="Coming soon...")
