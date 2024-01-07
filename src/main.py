@@ -2,7 +2,6 @@ import tkinter
 import tkinter.messagebox
 import customtkinter
 import sys
-import subprocess
 
 # components
 from components.buttons.ClearConsoleButton import clear_console
@@ -12,6 +11,7 @@ from components.buttons.executeButton import sidebar_button_event_scriptExe
 from components.buttons.discordButton import open_discord_server
 from components.buttons.githubButton import open_github_repository
 from components.buttons.openExplorerButton import open_explorer
+from components.consoleEntry import AppFunctions
 
 # scripts
 from components.scriptcalls.getAdGroupMember import getAdGroupMember
@@ -72,7 +72,10 @@ class App(customtkinter.CTk):
         # input field
         self.entry = customtkinter.CTkEntry(self, placeholder_text="> _", width=30)
         self.entry.grid(row=3, column=1, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew")
-        self.entry.bind("<Return>", self.execute_command)
+        app_functions = AppFunctions(self)  # Pass the instance of App to AppFunctions
+        self.entry.bind("<Return>", lambda event: app_functions.execute_command(event))
+        self.functions = app_functions  # Assign the functions instance to the App class
+        self.process = None
 
         self.main_button_1 = customtkinter.CTkButton(self.master, command=lambda: sidebar_button_event_scriptExe(self), text="Execute script")
         self.main_button_1.grid(row=3, column=3, padx=(20, 20), pady=(20, 20), sticky="nsew")
@@ -140,21 +143,6 @@ class App(customtkinter.CTk):
     def change_scaling_event(self, new_scaling: str):
         new_scaling_float = int(new_scaling.replace("%", "")) / 100
         customtkinter.set_widget_scaling(new_scaling_float)
-
-    def execute_command(self, event):
-        command = self.entry.get()
-
-        try:
-            output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT, universal_newlines=True)
-        except subprocess.CalledProcessError as e:
-            output = e.output
-
-        self.textbox.configure(state="normal")
-        self.textbox.insert("end", f"{command}\n")
-        self.textbox.insert("end", output)
-        self.textbox.configure(state="disabled")
-
-        self.entry.delete(0, "end")
 
 if __name__ == "__main__":
     app = App()
