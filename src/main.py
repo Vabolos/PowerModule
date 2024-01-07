@@ -11,6 +11,8 @@ from components.buttons.executeButton import sidebar_button_event_scriptExe
 from components.buttons.discordButton import open_discord_server
 from components.buttons.githubButton import open_github_repository
 from components.buttons.openExplorerButton import open_explorer
+from components.buttons.internalNotepad import open_notepad
+
 from components.consoleEntry import AppFunctions
 
 # scripts
@@ -128,6 +130,8 @@ class App(customtkinter.CTk):
                                 command=lambda: open_input_dialog_event(self)).grid(row=2, column=0, padx=20, pady=(5, 10))
         customtkinter.CTkButton(master=self.tabview.tab("Actions"), text="Open file explorer", 
                                 command=lambda: open_explorer(self)).grid(row=3, column=0, padx=20, pady=(5, 10))
+        customtkinter.CTkButton(master=self.tabview.tab("Actions"), text="Open notepad",
+                                command=lambda: open_notepad(self)).grid(row=4, column=0, padx=20, pady=(5, 10))
 
         # default values
         self.sidebar_button_3.configure(state="disabled", text="Coming soon...")
