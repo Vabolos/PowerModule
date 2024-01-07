@@ -1,4 +1,4 @@
-# components
+# components.buttons
 from components.buttons.ClearConsoleButton import clear_console
 from components.buttons.ConsoleInputButton import open_input_dialog_event
 from components.buttons.CopyToBoardButton import copy_to_clipboard
@@ -9,6 +9,7 @@ from components.buttons.openExplorerButton import open_explorer
 from components.buttons.internalNotepad import open_notepad
 from components.buttons.openPowershellButton import open_powershell
 
+# components.misc
 from components.consoleEntry import AppFunctions
 
 # scripts
