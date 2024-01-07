@@ -17,11 +17,11 @@ from components.buttons.openPowershellButton import open_powershell
 from components.consoleEntry import AppFunctions
 
 # scripts
-from components.scriptcalls.getAdGroupMember import getAdGroupMember
-from components.scriptcalls.getGroupsMemberOf import getGroupsMemberOf
-from components.scriptcalls.exportCsv import exportCSV
-from components.scriptcalls.copyMemberOf import copyMemberOf
-from components.scriptcalls.getPasswordStatus import getPasswordStatus
+from components.scriptcalls.ADM.getAdGroupMember import getAdGroupMember
+from components.scriptcalls.ADM.getGroupsMemberOf import getGroupsMemberOf
+from components.scriptcalls.ADM.exportCsv import exportCSV
+from components.scriptcalls.ADM.copyMemberOf import copyMemberOf
+from components.scriptcalls.ADM.getPasswordStatus import getPasswordStatus
 
 
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
