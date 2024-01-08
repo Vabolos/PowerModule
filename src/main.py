@@ -79,10 +79,18 @@ class App(customtkinter.CTk):
         # Adding "Machine" buttons
         customtkinter.CTkButton(master=self.tabview.tab("Machine"), text="Change Name",
                                 command=lambda: name_change_machine(self)).grid(row=0, column=0, padx=20, pady=(10, 5))
+        customtkinter.CTkButton(master=self.tabview.tab("Machine"), text="Add to Domain",
+                                command=lambda: add_to_domain_machine(self)).grid(row=1, column=0, padx=20, pady=5)
 
         # Adding "Server" tab
         self.tabview.add("Server")
         self.tabview.tab("Server").grid_columnconfigure(0, weight=1)
+
+        # Adding "Server" buttons
+        customtkinter.CTkButton(master=self.tabview.tab("Server"), text="Change Name",
+                                command=lambda: name_change_server(self)).grid(row=0, column=0, padx=20, pady=(10, 5))
+        customtkinter.CTkButton(master=self.tabview.tab("Server"), text="Add to Domain",
+                                command=lambda: add_to_domain_server(self)).grid(row=1, column=0, padx=20, pady=5)
 
         # Adding existing "Active Directory Manager" tab
         self.tabview.add("ADM")

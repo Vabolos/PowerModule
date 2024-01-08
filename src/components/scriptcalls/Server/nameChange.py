@@ -1,7 +1,7 @@
 import customtkinter
 import subprocess
 
-def name_change_machine(self):
+def name_change_server(self):
     self.textbox.configure(state="normal")
 
     # Get the input from the dialog
@@ -9,7 +9,7 @@ def name_change_machine(self):
     new_machine_name = dialog.get_input()
 
     # Specify the path to your PowerShell script
-    powershell_script = r'src/scripts/powermodules/Machine/nameChange.ps1'
+    powershell_script = r'src/scripts/powermodules/Server/nameChange.ps1'
 
     try:
         # Run the PowerShell script and pass the input as a parameter

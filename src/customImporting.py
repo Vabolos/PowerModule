@@ -21,3 +21,8 @@ from components.scriptcalls.ADM.getPasswordStatus import getPasswordStatus
 
 # scripts.Machine
 from components.scriptcalls.Machine.nameChange import name_change_machine
+from components.scriptcalls.Machine.addToDomain import add_to_domain_machine
+
+# scripts.Server
+from components.scriptcalls.Server.nameChange import name_change_server
+from components.scriptcalls.Server.addToDomain import add_to_domain_server

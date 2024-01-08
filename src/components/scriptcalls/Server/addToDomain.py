@@ -1,19 +1,20 @@
 import customtkinter
 import subprocess
 
-def name_change_machine(self):
+# function + window to add a machine to the domain
+def add_to_domain_server(self):
     self.textbox.configure(state="normal")
 
     # Get the input from the dialog
-    dialog = customtkinter.CTkInputDialog(text="New machine name:", title="nameChange")
-    new_machine_name = dialog.get_input()
+    dialog = customtkinter.CTkInputDialog(text="Machine name:", title="addToDomain")
+    machine_name = dialog.get_input()
 
     # Specify the path to your PowerShell script
-    powershell_script = r'src/scripts/powermodules/Machine/nameChange.ps1'
+    powershell_script = r'src/scripts/powermodules/Server/addToDomain.ps1'
 
     try:
         # Run the PowerShell script and pass the input as a parameter
-        scriptOutput = subprocess.check_output(['powershell', '-File', powershell_script, '-newMachineName', new_machine_name], text=True, stderr=subprocess.STDOUT)
+        scriptOutput = subprocess.check_output(['powershell', '-File', powershell_script, '-machineName', machine_name], text=True, stderr=subprocess.STDOUT)
 
         # Update the text in the custom Textbox with the PowerShell script output
         self.textbox.delete("0.0", "end")
