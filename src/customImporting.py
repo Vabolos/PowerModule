@@ -12,9 +12,12 @@ from components.buttons.openPowershellButton import open_powershell
 # components.misc
 from components.consoleEntry import AppFunctions
 
-# scripts
+# scripts.ADM
 from components.scriptcalls.ADM.getAdGroupMember import getAdGroupMember
 from components.scriptcalls.ADM.getGroupsMemberOf import getGroupsMemberOf
 from components.scriptcalls.ADM.exportCsv import exportCSV
 from components.scriptcalls.ADM.copyMemberOf import copyMemberOf
 from components.scriptcalls.ADM.getPasswordStatus import getPasswordStatus
+
+# scripts.Machine
+from components.scriptcalls.Machine.nameChange import name_change_machine

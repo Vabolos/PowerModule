@@ -76,6 +76,10 @@ class App(customtkinter.CTk):
         self.tabview.add("Machine")
         self.tabview.tab("Machine").grid_columnconfigure(0, weight=1)
 
+        # Adding "Machine" buttons
+        customtkinter.CTkButton(master=self.tabview.tab("Machine"), text="Change Name",
+                                command=lambda: name_change_machine(self)).grid(row=0, column=0, padx=20, pady=(10, 5))
+
         # Adding "Server" tab
         self.tabview.add("Server")
         self.tabview.tab("Server").grid_columnconfigure(0, weight=1)
