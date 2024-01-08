@@ -9,7 +9,7 @@ def getAdGroupMember(self):
     ad_group_name = dialog.get_input()
 
     # Specify the path to your PowerShell script
-    powershell_script = r'scripts\getAdGroupMember.ps1'
+    powershell_script = r'scripts\\powermodules\\ADM\\getAdGroupMember.ps1'
 
     try:
         # Run the PowerShell script and pass the input as a parameter
