@@ -27,3 +27,4 @@ from components.scriptcalls.Machine.ipReleaseRenew import ip_release_renew
 # scripts.Server
 from components.scriptcalls.Server.nameChange import name_change_server
 from components.scriptcalls.Server.addToDomain import add_to_domain_server
+from components.scriptcalls.Server.setupIPv4 import setup_IPv4

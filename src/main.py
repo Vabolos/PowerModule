@@ -93,6 +93,8 @@ class App(customtkinter.CTk):
                                 command=lambda: name_change_server(self)).grid(row=0, column=0, padx=20, pady=(10, 5))
         customtkinter.CTkButton(master=self.tabview.tab("Server"), text="Add to Domain",
                                 command=lambda: add_to_domain_server(self)).grid(row=1, column=0, padx=20, pady=5)
+        customtkinter.CTkButton(master=self.tabview.tab("Server"), text="Setup IPv4",
+                                command=lambda: setup_IPv4(self)).grid(row=2, column=0, padx=20, pady=5)
 
         # Adding existing "Active Directory Manager" tab
         self.tabview.add("ADM")
