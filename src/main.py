@@ -101,7 +101,7 @@ class App(customtkinter.CTk):
         self.tabview.tab("ADM").grid_columnconfigure(0, weight=1)
         
 
-        # Script buttons
+        # Script buttons (Active Directory Manager)
         customtkinter.CTkButton(master=self.tabview.tab("ADM"), text="Get Members AD Group", 
                                 command=lambda: getAdGroupMember(self)).grid(row=0, column=0, padx=20, pady=(10, 5))
         customtkinter.CTkButton(master=self.tabview.tab("ADM"), text="Get Groups Member Of", 
@@ -112,6 +112,8 @@ class App(customtkinter.CTk):
                                 command=lambda: copyMemberOf(self)).grid(row=3, column=0, padx=20, pady=5)
         customtkinter.CTkButton(master=self.tabview.tab("ADM"), text="Get Password Status", 
                                 command=lambda: getPasswordStatus(self)).grid(row=4, column=0, padx=20, pady=(5, 20))
+        customtkinter.CTkButton(master=self.tabview.tab("ADM"), text="List Disabled Users",
+                                command=lambda: list_disabled_users_server(self)).grid(row=5, column=0, padx=20, pady=(5, 10))
 
         # create actions tabview
         self.tabview = customtkinter.CTkTabview(self, width=250)
