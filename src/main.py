@@ -76,50 +76,76 @@ class App(customtkinter.CTk):
         self.tabview.add("Machine")
         self.tabview.tab("Machine").grid_columnconfigure(0, weight=1)
 
+        # create scrollable frame for the "Machine" tab
+        self.scrollable_frame = customtkinter.CTkScrollableFrame(self.tabview.tab("Machine"))
+        self.scrollable_frame.grid(row=0, column=0, padx=20, pady=(10, 0), sticky="nsew")
+        self.scrollable_frame.grid_columnconfigure(0, weight=1)
+        self.scrollable_frame.grid_rowconfigure(0, weight=1)
+
         # Adding "Machine" buttons
-        customtkinter.CTkButton(master=self.tabview.tab("Machine"), text="Change Name",
+        customtkinter.CTkButton(master=self.scrollable_frame, text="Change Name",
                                 command=lambda: name_change_machine(self)).grid(row=0, column=0, padx=20, pady=(10, 5))
-        customtkinter.CTkButton(master=self.tabview.tab("Machine"), text="Add to Domain",
+        customtkinter.CTkButton(master=self.scrollable_frame, text="Add to Domain",
                                 command=lambda: add_to_domain_machine(self)).grid(row=1, column=0, padx=20, pady=5)
-        customtkinter.CTkButton(master=self.tabview.tab("Machine"), text="Release/Renew IP",
+        customtkinter.CTkButton(master=self.scrollable_frame, text="Release/Renew IP",
                                 command=lambda: ip_release_renew(self)).grid(row=2, column=0, padx=20, pady=5)
 
         # Adding "Server" tab
         self.tabview.add("Server")
         self.tabview.tab("Server").grid_columnconfigure(0, weight=1)
 
+        # create scrollable frame for the "Server" tab
+        self.scrollable_frame = customtkinter.CTkScrollableFrame(self.tabview.tab("Server"))
+        self.scrollable_frame.grid(row=0, column=0, padx=20, pady=(10, 0), sticky="nsew")
+        self.scrollable_frame.grid_columnconfigure(0, weight=1)
+        self.scrollable_frame.grid_rowconfigure(0, weight=1)
+
         # Adding "Server" buttons
-        customtkinter.CTkButton(master=self.tabview.tab("Server"), text="Change Name",
+        customtkinter.CTkButton(master=self.scrollable_frame, text="Change Name",
                                 command=lambda: name_change_server(self)).grid(row=0, column=0, padx=20, pady=(10, 5))
-        customtkinter.CTkButton(master=self.tabview.tab("Server"), text="Add to Domain",
+        customtkinter.CTkButton(master=self.scrollable_frame, text="Add to Domain",
                                 command=lambda: add_to_domain_server(self)).grid(row=1, column=0, padx=20, pady=5)
-        customtkinter.CTkButton(master=self.tabview.tab("Server"), text="Setup IPv4",
+        customtkinter.CTkButton(master=self.scrollable_frame, text="Setup IPv4",
                                 command=lambda: setup_IPv4(self)).grid(row=2, column=0, padx=20, pady=5)
+        
+        # Update the geometry of the frame to make it expand with the window
+        self.tabview.tab("Server").update_idletasks()
+        self.scrollable_frame.config(width=self.tabview.tab("Server").winfo_width(), height=self.tabview.tab("Server").winfo_height())
 
         # Adding existing "Active Directory Manager" tab
         self.tabview.add("ADM")
         self.tabview.tab("ADM").grid_columnconfigure(0, weight=1)
-        
+
+        # Creating a scrollable frame for the "Active Directory Manager" tab
+        self.scrollable_frame = customtkinter.CTkScrollableFrame(self.tabview.tab("ADM"))
+        self.scrollable_frame.grid(row=0, column=0, padx=20, pady=(10, 0), sticky="nsew")
+        self.scrollable_frame.grid_columnconfigure(0, weight=1)
+        self.scrollable_frame.grid_rowconfigure(0, weight=1)
 
         # Script buttons (Active Directory Manager)
-        customtkinter.CTkButton(master=self.tabview.tab("ADM"), text="Get Members AD Group", 
-                                command=lambda: get_ad_group_member_server(self)).grid(row=0, column=0, padx=20, pady=(10, 5))
-        customtkinter.CTkButton(master=self.tabview.tab("ADM"), text="Get Groups Member Of", 
-                                command=lambda: get_group_member_of_server(self)).grid(row=1, column=0, padx=20, pady=5)
-        customtkinter.CTkButton(master=self.tabview.tab("ADM"), text="Export CSV", 
-                                command=lambda: export_csv_server(self)).grid(row=2, column=0, padx=20, pady=5)
-        customtkinter.CTkButton(master=self.tabview.tab("ADM"), text="Copy Member Of", 
-                                command=lambda: copy_member_of_server(self)).grid(row=3, column=0, padx=20, pady=5)
-        customtkinter.CTkButton(master=self.tabview.tab("ADM"), text="Get Password Status", 
-                                command=lambda: get_password_status_server(self)).grid(row=4, column=0, padx=20, pady=(5, 20))
-        customtkinter.CTkButton(master=self.tabview.tab("ADM"), text="List Disabled Users",
-                                command=lambda: list_disabled_users_server(self)).grid(row=5, column=0, padx=20, pady=(5, 10))
+        customtkinter.CTkButton(master=self.scrollable_frame, text="Get Members AD Group",
+                                command=lambda: get_ad_group_member_server(self)).pack(pady=5)
+        customtkinter.CTkButton(master=self.scrollable_frame, text="Get Groups Member Of",
+                                command=lambda: get_group_member_of_server(self)).pack(pady=5)
+        customtkinter.CTkButton(master=self.scrollable_frame, text="Export CSV",
+                                command=lambda: export_csv_server(self)).pack(pady=5)
+        customtkinter.CTkButton(master=self.scrollable_frame, text="Copy Member Of",
+                                command=lambda: copy_member_of_server(self)).pack(pady=5)
+        customtkinter.CTkButton(master=self.scrollable_frame, text="Get Password Status",
+                                command=lambda: get_password_status_server(self)).pack(pady=5)
+        customtkinter.CTkButton(master=self.scrollable_frame, text="List Disabled Users",
+                                command=lambda: list_disabled_users_server(self)).pack(pady=5)
+
+        # Update the geometry of the frame to make it expand with the window
+        self.tabview.tab("ADM").update_idletasks()
+        self.scrollable_frame.config(width=self.tabview.tab("ADM").winfo_width(), height=self.tabview.tab("ADM").winfo_height())
 
         # create actions tabview
         self.tabview = customtkinter.CTkTabview(self, width=250)
         self.tabview.grid(row=2, column=3, padx=(20, 20), pady=(10, 0), sticky="nsew")
         self.tabview.add("Actions")
         self.tabview.tab("Actions").grid_columnconfigure(0, weight=1)
+        
 
         # Action buttons
         customtkinter.CTkButton(master=self.tabview.tab("Actions"), text="Clear console", 
