@@ -13,11 +13,12 @@ from components.buttons.Actions.openPowershellButton import open_powershell
 from components.consoleEntry import AppFunctions
 
 # scripts.ADM
-from components.scriptcalls.ADM.getAdGroupMember import getAdGroupMember
-from components.scriptcalls.ADM.getGroupsMemberOf import getGroupsMemberOf
-from components.scriptcalls.ADM.exportCsv import exportCSV
-from components.scriptcalls.ADM.copyMemberOf import copyMemberOf
-from components.scriptcalls.ADM.getPasswordStatus import getPasswordStatus
+from components.scriptcalls.ADM.getAdGroupMember import get_ad_group_member_server
+from components.scriptcalls.ADM.getGroupsMemberOf import get_group_member_of_server
+from components.scriptcalls.ADM.exportCsv import export_csv_server
+from components.scriptcalls.ADM.copyMemberOf import copy_member_of_server
+from components.scriptcalls.ADM.getPasswordStatus import get_password_status_server
+from components.scriptcalls.ADM.listDisabledUsers import list_disabled_users_server
 
 # scripts.Machine
 from components.scriptcalls.Machine.nameChange import name_change_machine

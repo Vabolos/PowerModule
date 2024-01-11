@@ -1,7 +1,7 @@
 import subprocess
 import customtkinter
 
-def getAdGroupMember(self):
+def get_ad_group_member_server(self):
     self.textbox.configure(state="normal")
 
     # Get the input from the dialog
@@ -9,7 +9,7 @@ def getAdGroupMember(self):
     ad_group_name = dialog.get_input()
 
     # Specify the path to your PowerShell script
-    powershell_script = r'scripts\\powermodules\\ADM\\getAdGroupMember.ps1'
+    powershell_script = r'src/scripts/powermodules/ADM/getAdGroupMember.ps1'
 
     try:
         # Run the PowerShell script and pass the input as a parameter

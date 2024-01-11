@@ -1,7 +1,7 @@
 import subprocess
 import customtkinter
 
-def copyMemberOf(self):
+def copy_member_of_server(self):
     self.textbox.configure(state="normal")
 
     # Get the input from the dialog
@@ -12,7 +12,7 @@ def copyMemberOf(self):
     newUserInput = newUser.get_input()
 
     # Specify the path to your PowerShell script
-    powershell_script = r'scripts\copyMemberOf.ps1'
+    powershell_script = r'src/scripts/powermodules/ADM/copyMemberOf.ps1'
 
     try:
         # Run the PowerShell script and pass the input as a parameter

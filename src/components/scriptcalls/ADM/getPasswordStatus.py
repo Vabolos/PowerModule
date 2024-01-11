@@ -1,7 +1,7 @@
 import subprocess
 import customtkinter
 
-def getPasswordStatus(self):
+def get_password_status_server(self):
     self.textbox.configure(state="normal")
 
     # Get the input from the dialog
@@ -9,7 +9,7 @@ def getPasswordStatus(self):
     adUser = dialog.get_input()
 
     # Specify the path to your PowerShell script
-    powershell_script = r'scripts\getPasswordStatus.ps1'
+    powershell_script = r'src/scripts/powermodules/ADM/getPasswordStatus.ps1'
 
     try:
         # Run the PowerShell script and pass the input as a parameter
