@@ -65,7 +65,7 @@ class App(customtkinter.CTk):
         self.main_button_1.grid(row=3, column=3, padx=(20, 20), pady=(20, 20), sticky="nsew")
 
         # console
-        self.textbox = customtkinter.CTkTextbox(self, width=450, state="disabled")
+        self.textbox = customtkinter.CTkTextbox(self, width=450, state="disabled", font=customtkinter.CTkFont(size=15, weight="bold", family="Consolas"))
         self.textbox.grid(row=0, rowspan=3, column=1, columnspan=2, padx=(20, 0), pady=(20, 0), sticky="nsew")
 
         # create script tabview
