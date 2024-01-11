@@ -64,7 +64,8 @@ class App(customtkinter.CTk):
         self.functions = app_functions  # Assign the functions instance to the App class
         self.process = None
 
-        self.main_button_1 = customtkinter.CTkButton(self.master, command=lambda: sidebar_button_event_scriptExe(self), text="Execute script")
+        self.main_button_1 = customtkinter.CTkButton(self.master, 
+                                                     command=lambda: execute_script(self), text="Execute script")
         self.main_button_1.grid(row=3, column=3, padx=(20, 20), pady=(20, 20), sticky="nsew")
 
         # console
