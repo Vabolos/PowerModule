@@ -40,7 +40,7 @@ class App(customtkinter.CTk):
         self.sidebar_button_1.grid(row=1, column=0, padx=20, pady=10)
         self.sidebar_button_2 = customtkinter.CTkButton(self.sidebar_frame, command=lambda: open_discord_server(self), text="Support Discord")
         self.sidebar_button_2.grid(row=2, column=0, padx=20, pady=10)
-        self.sidebar_button_3 = customtkinter.CTkButton(self.sidebar_frame, command=lambda: clear_console(self))
+        self.sidebar_button_3 = customtkinter.CTkButton(self.sidebar_frame, command=lambda: clear_console(self), text="Import script")
         self.sidebar_button_3.grid(row=3, column=0, padx=20, pady=10)
         self.appearance_mode_label = customtkinter.CTkLabel(self.sidebar_frame, text="Appearance Mode:", anchor="w")
         self.appearance_mode_label.grid(row=5, column=0, padx=20, pady=(10, 0))
@@ -162,7 +162,6 @@ class App(customtkinter.CTk):
                                 command=lambda: open_powershell()).grid(row=5, column=0, padx=20, pady=(5, 10))
 
         # default values
-        self.sidebar_button_3.configure(state="disabled", text="Coming soon...")
         self.appearance_mode_optionemenu.set("Dark")
         self.scaling_optionemenu.set("100%")
         self.textbox.configure(state="normal")
