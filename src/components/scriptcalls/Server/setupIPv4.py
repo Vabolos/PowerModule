@@ -47,7 +47,10 @@ def setup_IPv4(parent):
 
     # Style configuration
     style = ttk.Style()
-    style.configure('TLabel', font=('Helvetica', 12), foreground='#1d1e1e')  # Set text color to a darker shade
+    # remove label hightlighting
+    style.map('TLabel', background=[('!active', '#242424')])
+    style.configure('TLabel', font=('Helvetica', 12, 'bold'), foreground='#ffffff')
+    style.configure('TFrame', background='#242424')  # Set the background color of frames
     style.configure('TEntry', font=('Helvetica', 12), fieldbackground='#1d1e1e', foreground='#1d1e1e', highlightthickness=0)  # Set entry box colors and remove border
     style.configure('TButton', font=('Helvetica', 12), background='#242424', foreground='#1d1e1e', highlightthickness=0)  # Set button colors and remove border
 
