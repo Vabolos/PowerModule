@@ -1,4 +1,4 @@
 import subprocess
 
-def open_explorer(self):
+def restart_machine(self):
     subprocess.Popen(r'explorer /select')

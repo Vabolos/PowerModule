@@ -158,8 +158,8 @@ class App(customtkinter.CTk):
                                 command=lambda: copy_to_clipboard(self)).grid(row=0, column=0, padx=20, pady=(5, 10))
         customtkinter.CTkButton(master=self.tabview.tab("Actions"), text="Console Input Tester", 
                                 command=lambda: open_input_dialog_event(self)).grid(row=2, column=0, padx=20, pady=(5, 10))
-        customtkinter.CTkButton(master=self.tabview.tab("Actions"), text="Open file explorer", 
-                                command=lambda: open_explorer(self)).grid(row=3, column=0, padx=20, pady=(5, 10))
+        customtkinter.CTkButton(master=self.tabview.tab("Actions"), text="Restart machine", 
+                                command=lambda: restart_machine(self)).grid(row=3, column=0, padx=20, pady=(5, 10))
         customtkinter.CTkButton(master=self.tabview.tab("Actions"), text="Open notepad",
                                 command=lambda: open_notepad(self)).grid(row=4, column=0, padx=20, pady=(5, 10))
         customtkinter.CTkButton(master=self.tabview.tab("Actions"), text="Open powershell",
