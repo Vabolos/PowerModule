@@ -8,6 +8,7 @@ from components.buttons.githubButton import open_github_repository
 from components.buttons.Actions.openExplorerButton import open_explorer
 from components.buttons.Actions.internalNotepad import open_notepad
 from components.buttons.Actions.openPowershellButton import open_powershell
+from components.buttons.importScript import import_script
 
 # components.misc
 from components.consoleEntry import AppFunctions
