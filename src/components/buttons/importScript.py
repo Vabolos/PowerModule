@@ -1,33 +1,21 @@
-import filecmp
-import fileinput
-import subprocess
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import filedialog, messagebox
 
 def import_script(self):
-    subprocess.Popen(r'explorer /select')
-    # only accept .ps1 files (only show these files in the file explorer)
-    if filecmp.endswith(".ps1"):
-        # open the file
-        with open(fileinput, "r") as f:
-            # read the file
-            data = f.read()
-            # insert the data into the console
-            self.consoleEntry.insert(tk.END, data)
-            # insert a new line
-            self.consoleEntry.insert(tk.END, "\n")
-            # focus the console
-            self.consoleEntry.focus()
-            # set the cursor to the end of the console
-            self.consoleEntry.see(tk.END)
-            # update the console
-            self.consoleEntry.update()
-    else:
-        # if the file is not a .ps1 file, show an error
+    file_path = filedialog.askopenfilename(filetypes=[("PowerShell Script Files", "*.ps1")])
+
+    if file_path and file_path.lower().endswith(".ps1"):
+        try:
+            with open(file_path, "r") as f:
+                data = f.read()
+                self.consoleEntry.insert(tk.END, data + "\n")
+                self.consoleEntry.focus()
+                self.consoleEntry.see(tk.END)
+                self.consoleEntry.update()
+        except Exception as e:
+            messagebox.showerror("Error", f"Error reading file: {str(e)}")
+    elif file_path:
         messagebox.showerror("Error", "Only .ps1 files are supported!")
-        # focus the console
         self.consoleEntry.focus()
-        # set the cursor to the end of the console
         self.consoleEntry.see(tk.END)
-        # update the console
         self.consoleEntry.update()
