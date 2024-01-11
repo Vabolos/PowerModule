@@ -103,15 +103,15 @@ class App(customtkinter.CTk):
 
         # Script buttons (Active Directory Manager)
         customtkinter.CTkButton(master=self.tabview.tab("ADM"), text="Get Members AD Group", 
-                                command=lambda: getAdGroupMember(self)).grid(row=0, column=0, padx=20, pady=(10, 5))
+                                command=lambda: get_ad_group_member_server(self)).grid(row=0, column=0, padx=20, pady=(10, 5))
         customtkinter.CTkButton(master=self.tabview.tab("ADM"), text="Get Groups Member Of", 
-                                command=lambda: getGroupsMemberOf(self)).grid(row=1, column=0, padx=20, pady=5)
+                                command=lambda: get_group_member_of_server(self)).grid(row=1, column=0, padx=20, pady=5)
         customtkinter.CTkButton(master=self.tabview.tab("ADM"), text="Export CSV", 
-                                command=lambda: exportCSV(self)).grid(row=2, column=0, padx=20, pady=5)
+                                command=lambda: export_csv_server(self)).grid(row=2, column=0, padx=20, pady=5)
         customtkinter.CTkButton(master=self.tabview.tab("ADM"), text="Copy Member Of", 
-                                command=lambda: copyMemberOf(self)).grid(row=3, column=0, padx=20, pady=5)
+                                command=lambda: copy_member_of_server(self)).grid(row=3, column=0, padx=20, pady=5)
         customtkinter.CTkButton(master=self.tabview.tab("ADM"), text="Get Password Status", 
-                                command=lambda: getPasswordStatus(self)).grid(row=4, column=0, padx=20, pady=(5, 20))
+                                command=lambda: get_password_status_server(self)).grid(row=4, column=0, padx=20, pady=(5, 20))
         customtkinter.CTkButton(master=self.tabview.tab("ADM"), text="List Disabled Users",
                                 command=lambda: list_disabled_users_server(self)).grid(row=5, column=0, padx=20, pady=(5, 10))
 
