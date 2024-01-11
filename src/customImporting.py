@@ -4,7 +4,7 @@ from components.buttons.Actions.ConsoleInputButton import open_input_dialog_even
 from components.buttons.Actions.CopyToBoardButton import copy_to_clipboard
 from components.buttons.discordButton import open_discord_server
 from components.buttons.githubButton import open_github_repository
-from components.buttons.Actions.openExplorerButton import open_explorer
+from components.buttons.Actions.restartMachine import open_explorer
 from components.buttons.Actions.internalNotepad import open_notepad
 from components.buttons.Actions.openPowershellButton import open_powershell
 from components.buttons.importScript import *
