@@ -24,8 +24,10 @@ from components.scriptcalls.ADM.listDisabledUsers import list_disabled_users_ser
 from components.scriptcalls.Machine.nameChange import name_change_machine
 from components.scriptcalls.Machine.addToDomain import add_to_domain_machine
 from components.scriptcalls.Machine.ipReleaseRenew import ip_release_renew
+from components.scriptcalls.Machine.diskCleaner import disk_cleaner_machine
 
 # scripts.Server
 from components.scriptcalls.Server.nameChange import name_change_server
 from components.scriptcalls.Server.addToDomain import add_to_domain_server
 from components.scriptcalls.Server.setupIPv4 import setup_IPv4
+from components.scriptcalls.Server.diskCleaner import disk_cleaner_server

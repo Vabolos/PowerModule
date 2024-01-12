@@ -93,6 +93,8 @@ class App(customtkinter.CTk):
                                 command=lambda: add_to_domain_machine(self)).grid(row=1, column=0, padx=20, pady=5)
         customtkinter.CTkButton(master=self.scrollable_frame, text="Release/Renew IP",
                                 command=lambda: ip_release_renew(self)).grid(row=2, column=0, padx=20, pady=5)
+        customtkinter.CTkButton(master=self.scrollable_frame, text="Disk Cleaner",
+                                command=lambda: disk_cleaner_machine()).grid(row=3, column=0, padx=20, pady=5)
 
         # Adding "Server" tab
         self.tabview.add("Server")
@@ -111,6 +113,8 @@ class App(customtkinter.CTk):
                                 command=lambda: add_to_domain_server(self)).grid(row=1, column=0, padx=20, pady=5)
         customtkinter.CTkButton(master=self.scrollable_frame, text="Setup IPv4",
                                 command=lambda: setup_IPv4(self)).grid(row=2, column=0, padx=20, pady=5)
+        customtkinter.CTkButton(master=self.scrollable_frame, text="Disk Cleaner",
+                                command=lambda: disk_cleaner_server()).grid(row=3, column=0, padx=20, pady=5)
         
         # Update the geometry of the frame to make it expand with the window
         self.tabview.tab("Server").update_idletasks()
