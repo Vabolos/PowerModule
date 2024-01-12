@@ -23,7 +23,7 @@ def open_notepad(self):
     notepad = customtkinter.CTk()
     notepad.title("Notepad")
     notepad.geometry(f"{800}x{600}")
-    notepad.resizable(True, True)
+    notepad.resizable(False, False)
     notepad.iconbitmap("powermodule.ico")
 
     textbox = customtkinter.CTkTextbox(notepad, width=750, height=500)
