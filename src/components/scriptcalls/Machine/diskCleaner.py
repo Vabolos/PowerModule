@@ -1,65 +1,14 @@
 # disk cleaner script
-import os
-import time
 from tkinter import messagebox
+import subprocess
 
 def disk_cleaner_machine():
+    powershell_script_path = r'src/scripts/powermodules/Machine/diskCleaner.ps1'
+    
+    # Count the number of cleanup items in the PowerShell script
+    cleanup_items_count = subprocess.check_output(['powershell.exe', '-File', powershell_script_path, '-Count']).decode('utf-8').strip()
+
     print("Disk Cleaner")
     print("============")
     print("This script will clean up the disk space on this machine.")
-    print("It will remove the following:")
-    print("- Windows Update Files")
-    print("- Windows Error Reporting Files")
-    print("- Windows Log Files")
-    print("- Windows Temp Files")
-    print("- Windows Temp Internet Files")
-    print("- Windows Temp Update Files")
-    print("- Windows Temp Error Reporting Files")
-    print("- Windows Temp Log Files")
-    print("- Windows Temp Internet Files")
-    print("- Windows Temp Update Files")
-    print("- Windows Temp Error Reporting Files")
-    print("- Windows Temp Log Files")
-    print("- Windows Temp Internet Files")
-    print("- Windows Temp Update Files")
-    print("- Windows Temp Error Reporting Files")
-    print("- Windows Temp Log Files")
-    print("- Windows Temp Internet Files")
-    print("- Windows Temp Update Files")
-    print("- Windows Temp Error Reporting Files")
-    print("- Windows Temp Log Files")
-    print("- Windows Temp Internet Files")
-    print("- Windows Temp Update Files")
-    print("- Windows Temp Error Reporting Files")
-    print("- Windows Temp Log Files")
-    print("- Windows Temp Internet Files")
-    print("- Windows Temp Update Files")
-    print("- Windows Temp Error Reporting Files")
-    print("- Windows Temp Log Files")
-    print("- Windows Temp Internet Files")
-    print("- Windows Temp Update Files")
-    print("- Windows Temp Error Reporting Files")
-    print("- Windows Temp Log Files")
-    print("- Windows Temp Internet Files")
-    print("- Windows Temp Update Files")
-    print("- Windows Temp Error Reporting Files")
-    print("- Windows Temp Log Files")
-    print("- Windows Temp Internet Files")
-    print("- Windows Temp Update Files")
-    print("- Windows Temp Error Reporting Files")
-    print("")
-
-    print("This script will take a while to complete.")
-    print("Please be patient.")
-    print("")
-
-    print("Press Enter to continue.")
-    input()
-
-    print("Cleaning up Windows Update Files...")
-    time.sleep(1)
-    os.system('del /f /s /q /a %windir%\SoftwareDistribution\Download\*.* >nul 2>&1')
-    print("Cleaning up Windows Error Reporting Files...")
-    time.sleep(1)
-    os.system('del /f /s /q /a %windir%\System32\winevt\Logs\*.* >nul 2>&1')
-    print("Cleaning up Windows Log Files...")
+    print(f"It will remove {cleanup_items_count or 0} items.")
