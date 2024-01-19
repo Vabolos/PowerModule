@@ -44,6 +44,7 @@ def setup_IPv4(parent):
     ip_dialog.configure(bg='#242424')  # Set the background color to dark gray
     ip_dialog.iconbitmap("powermodule.ico")  # Set the icon to the powermodule icon
     ip_dialog.resizable(False, False)  # Disable resizing of the window
+    ip_dialog.focus_force()  # Set focus to the dialog window
 
     # Style configuration
     style = ttk.Style()
