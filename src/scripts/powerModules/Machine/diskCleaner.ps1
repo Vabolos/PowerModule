@@ -1,10 +1,15 @@
-# disk_cleaner.ps1
-
 # Function to clean up a specific item
 function CleanUpItem($item, $path) {
     Write-Host "Cleaning up $item..."
-    Remove-Item -Path "$env:windir\$path\*" -Force -Recurse -ErrorAction SilentlyContinue
-    Start-Sleep -Seconds 1
+    try {
+        $fullPath = Join-Path $env:windir $path
+        Remove-Item -Path "$fullPath\*" -Force -Recurse -ErrorAction Stop
+        Start-Sleep -Seconds 1
+        Write-Host "$item cleaned up successfully."
+    }
+    catch {
+        Write-Host "Error cleaning up $item : $_"
+    }
 }
 
 # Main function to perform disk cleanup
@@ -28,6 +33,13 @@ function DiskCleanerMachine {
     Write-Host "`nThis script will take a while to complete."
     Write-Host "Please be patient.`n"
 
+    # Request admin rights
+    if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+        $arguments = "& '${env:USERPROFILE}\Desktop\disk_cleaner.ps1'"
+        Start-Process powershell -Verb runAs -ArgumentList $arguments
+        Exit
+    }
+
     Read-Host "Press Enter to continue."
 
     $progress = 1
@@ -39,3 +51,6 @@ function DiskCleanerMachine {
         }
     }
 }
+
+# Run the main function
+DiskCleanerMachine
