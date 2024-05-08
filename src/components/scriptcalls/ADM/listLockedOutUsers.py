@@ -1,6 +1,6 @@
 import subprocess
 
-def list_disabled_users_server(self):
+def list_lockedout_users_server(self):
     # Specify the path to your PowerShell script
     powershell_script = r'src/scripts/powermodules/ADM/listLockedOutUsers.ps1'
 
