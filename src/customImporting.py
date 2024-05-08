@@ -26,6 +26,7 @@ from components.scriptcalls.Machine.nameChange import name_change_machine
 from components.scriptcalls.Machine.addToDomain import add_to_domain_machine
 from components.scriptcalls.Machine.ipReleaseRenew import ip_release_renew
 from components.scriptcalls.Machine.diskCleaner import disk_cleaner_machine
+from components.scriptcalls.Machine.batteryReport import battery_report
 
 # scripts.Server
 from components.scriptcalls.Server.nameChange import name_change_server

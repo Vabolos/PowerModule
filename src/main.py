@@ -94,7 +94,9 @@ class App(customtkinter.CTk):
         customtkinter.CTkButton(master=self.scrollable_frame, text="Release/Renew IP",
                                 command=lambda: ip_release_renew(self)).grid(row=2, column=0, padx=20, pady=5)
         customtkinter.CTkButton(master=self.scrollable_frame, text="Disk Cleaner",
-                                command=lambda: disk_cleaner_machine()).grid(row=3, column=0, padx=20, pady=5)
+                                command=lambda: disk_cleaner_machine(self)).grid(row=3, column=0, padx=20, pady=5)
+        customtkinter.CTkButton(master=self.scrollable_frame, text="Get Battery Report",
+                                command=lambda: battery_report(self)).grid(row=4, column=0, padx=20, pady=5)
 
         # Adding "Server" tab
         self.tabview.add("Server")
