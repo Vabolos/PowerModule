@@ -1,5 +1,20 @@
 import subprocess
 import threading
+from prompt_toolkit import PromptSession
+from prompt_toolkit.completion import Completer, Completion
+from prompt_toolkit.lexers import PygmentsLexer
+from prompt_toolkit.styles import Style
+from pygments.lexers.shell import BashLexer
+
+class PowerShellCompleter(Completer):
+    def __init__(self):
+        self.commands = ["cls", "dir", "cd", "echo"]
+
+    def get_completions(self, document, complete_event):
+        word_before_cursor = document.get_word_before_cursor(WORD=True)
+        for command in self.commands:
+            if command.startswith(word_before_cursor):
+                yield Completion(command, start_position=-len(word_before_cursor))
 
 class AppFunctions:
     def __init__(self, app_instance):
@@ -42,3 +57,21 @@ class AppFunctions:
             result = e.output
 
         return result
+
+    def start_powershell_console(self):
+        completer = PowerShellCompleter()
+        style = Style.from_dict({
+            'prompt': '#00aa00',
+            'command': '#0000aa',
+            'output': '#aa0000',
+        })
+        session = PromptSession(completer=completer, lexer=PygmentsLexer(BashLexer), style=style)
+        while True:
+            try:
+                command = session.prompt("PS> ", style="prompt")
+                output = self.process_command(command)
+                print(output)
+            except KeyboardInterrupt:
+                continue
+            except EOFError:
+                break
