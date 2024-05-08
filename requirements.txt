@@ -1,3 +1,5 @@
 # you might have to upgrade the tkinter lib
 # pip3 install customtkinter --upgrade
 customtkinter
+prompt_toolkit
+pygments
