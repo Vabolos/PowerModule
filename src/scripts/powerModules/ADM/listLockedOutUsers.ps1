@@ -1,1 +1,1 @@
-Search-ADAccount -LockedOut 
+Search-ADAccount -lockedout | where-object {$_.enabled -eq 'True'}
