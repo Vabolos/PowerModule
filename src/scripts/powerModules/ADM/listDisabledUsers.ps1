@@ -1,1 +1,1 @@
-$disabledAccounts = Search-ADAccount -AccountDisabled | Select-Object -ExpandProperty SamAccountName
+Get-ADUser -Filter {Enabled -eq $false} | Select-Object Name, SamAccountName
