@@ -1,6 +1,6 @@
 import subprocess
 
-def list_disabled_users_server(self):
+def flush_dns_server(self):
     # Specify the path to your PowerShell script
     powershell_script = r'src/scripts/powermodules/ADM/flushDNS.ps1'
 
