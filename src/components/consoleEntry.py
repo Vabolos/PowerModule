@@ -6,6 +6,7 @@ from prompt_toolkit.completion import Completer, Completion
 from prompt_toolkit.lexers import PygmentsLexer
 from prompt_toolkit.styles import Style
 from pygments.lexers.shell import BashLexer
+from tkinter import END
 
 class PowerShellCompleter(Completer):
     def __init__(self):
@@ -75,22 +76,22 @@ class AppFunctions:
     def start_powershell_console(self):
         if not self.is_powershell_open:
             self.is_powershell_open = True
-            self.app_instance.textbox.insert("end", "PowerShell console opened. Type 'exit' to close.\n")
-    
+            self.app_instance.textbox.insert("end", "PowerShell console opened. Type 'exit' to close.\n\n")
+
             completer = PowerShellCompleter()
             style = Style.from_dict({
                 'prompt': '#00aa00',
                 'command': '#0000aa',
                 'output': '#aa0000',
             })
-    
+
             def get_input():
-                prompt_text = "PS> "
+                prompt_text = "\n\nPS> "
                 self.app_instance.textbox.insert("end", prompt_text)
                 return self.app_instance.textbox.get("end-1c linestart", "end-1c lineend")
-    
+
             session = PromptSession(completer=completer, lexer=PygmentsLexer(BashLexer), style=style, input=get_input)
-    
+
             def handle_powershell_command():
                 text = self.app_instance.textbox.get("end-1c linestart", "end-1c lineend")
                 text = text.strip()
@@ -105,12 +106,14 @@ class AppFunctions:
                     self.app_instance.textbox.insert("end", output + "\n")
                     self.app_instance.textbox.configure(state="disabled")
                     self.app_instance.textbox.see("end")
-    
+
             def on_enter(event):
                 handle_powershell_command()
                 self.app_instance.entry.delete(0, "end")
-    
+
             self.app_instance.entry.bind("<Return>", on_enter)
+            # Insert PS> prompt
+            self.app_instance.textbox.insert("end", "PS> ")
         else:
             self.app_instance.textbox.insert("end", "PowerShell console is already open.\n")
-    
+
