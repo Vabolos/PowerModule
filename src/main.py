@@ -181,7 +181,7 @@ class App(customtkinter.CTk):
         self.appearance_mode_optionemenu.set("Dark")
         self.scaling_optionemenu.set("100%")
         self.textbox.configure(state="normal")
-        self.textbox.insert("0.0", "Welcome to PowerModule!\n\n")
+        self.textbox.insert("0.0", "Welcome to PowerModule!\n\nType 'powershell' to open a PowerShell console, and 'exit' to close it.\n\n")
         self.textbox.configure(state="disabled")
 
     def change_appearance_mode_event(self, new_appearance_mode: str):
