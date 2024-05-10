@@ -1,5 +1,6 @@
 import subprocess
 import threading
+import queue
 from prompt_toolkit import PromptSession
 from prompt_toolkit.completion import Completer, Completion
 from prompt_toolkit.lexers import PygmentsLexer
@@ -20,6 +21,7 @@ class AppFunctions:
     def __init__(self, app_instance):
         self.app_instance = app_instance
         self.is_powershell_open = False  # Flag to track if PowerShell console is open
+        self.input_queue = queue.Queue()
 
     def execute_command(self, event):
         self.app_instance.textbox.configure(state="normal")
@@ -82,14 +84,6 @@ class AppFunctions:
                 'output': '#aa0000',
             })
     
-            # Define a function to handle PowerShell commands
-            def handle_powershell_command(text):
-                output = self.process_command(text)
-                self.app_instance.output_textbox.configure(state="normal")
-                self.app_instance.output_textbox.insert("end", output + "\n")
-                self.app_instance.output_textbox.configure(state="disabled")
-                self.app_instance.output_textbox.see("end")
-    
             def get_input():
                 prompt_text = "PS> "
                 self.app_instance.textbox.insert("end", prompt_text)
@@ -97,21 +91,26 @@ class AppFunctions:
     
             session = PromptSession(completer=completer, lexer=PygmentsLexer(BashLexer), style=style, input=get_input)
     
-            try:
-                while True:
-                    text = session.prompt("", style="prompt")
-                    text = text.strip()
-                    if text.lower() == "exit":
-                        break
-                    elif text.lower() == "powershell":
-                        self.app_instance.textbox.delete("end-1c wordstart", "end")
-                    else:
-                        handle_powershell_command(text)
-            except KeyboardInterrupt:
-                pass
-            finally:
-                self.is_powershell_open = False
-                self.app_instance.textbox.insert("end", "\nPowerShell console closed.\n")
+            def handle_powershell_command():
+                text = self.app_instance.textbox.get("end-1c linestart", "end-1c lineend")
+                text = text.strip()
+                if text.lower() == "exit":
+                    self.is_powershell_open = False
+                    self.app_instance.textbox.insert("end", "\nPowerShell console closed.\n")
+                elif text.lower() == "powershell":
+                    self.app_instance.textbox.delete("end-1c wordstart", "end")
+                else:
+                    output = self.process_command(text)
+                    self.app_instance.textbox.configure(state="normal")
+                    self.app_instance.textbox.insert("end", output + "\n")
+                    self.app_instance.textbox.configure(state="disabled")
+                    self.app_instance.textbox.see("end")
+    
+            def on_enter(event):
+                handle_powershell_command()
+                self.app_instance.entry.delete(0, "end")
+    
+            self.app_instance.entry.bind("<Return>", on_enter)
         else:
             self.app_instance.textbox.insert("end", "PowerShell console is already open.\n")
     
