@@ -76,22 +76,20 @@ class AppFunctions:
     def start_powershell_console(self):
         if not self.is_powershell_open:
             self.is_powershell_open = True
-            self.app_instance.textbox.insert("end", "PowerShell console opened. Type 'exit' to close.\n\n")
-
+            self.app_instance.textbox.insert("end", "PowerShell console opened. Type 'exit' to close.\n")
+    
             completer = PowerShellCompleter()
             style = Style.from_dict({
                 'prompt': '#00aa00',
                 'command': '#0000aa',
                 'output': '#aa0000',
             })
-
-            def get_input():
-                prompt_text = "\n\nPS> "
-                self.app_instance.textbox.insert("end", prompt_text)
-                return self.app_instance.textbox.get("end-1c linestart", "end-1c lineend")
-
+    
+            def get_input(prompt):
+                return "PS> "
+    
             session = PromptSession(completer=completer, lexer=PygmentsLexer(BashLexer), style=style, input=get_input)
-
+    
             def handle_powershell_command():
                 text = self.app_instance.textbox.get("end-1c linestart", "end-1c lineend")
                 text = text.strip()
@@ -106,14 +104,19 @@ class AppFunctions:
                     self.app_instance.textbox.insert("end", output + "\n")
                     self.app_instance.textbox.configure(state="disabled")
                     self.app_instance.textbox.see("end")
-
+    
             def on_enter(event):
                 handle_powershell_command()
                 self.app_instance.entry.delete(0, "end")
-
+    
             self.app_instance.entry.bind("<Return>", on_enter)
+            # Enable editing for inserting PS> prompt
+            self.app_instance.textbox.configure(state="normal")
             # Insert PS> prompt
             self.app_instance.textbox.insert("end", "PS> ")
+            # Allow the user to type after PS>
+            self.app_instance.textbox.bind("<Return>", on_enter)
+            # Disable editing
+            self.app_instance.textbox.configure(state="disabled")
         else:
             self.app_instance.textbox.insert("end", "PowerShell console is already open.\n")
-
