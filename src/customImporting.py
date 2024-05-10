@@ -20,6 +20,7 @@ from components.scriptcalls.ADM.copyMemberOf import copy_member_of_server
 from components.scriptcalls.ADM.getPasswordStatus import get_password_status_server
 from components.scriptcalls.ADM.listDisabledUsers import list_disabled_users_server
 from components.scriptcalls.ADM.listLockedOutUsers import list_lockedout_users_server
+from components.scriptcalls.ADM.flushDNS import flush_dns_server
 
 # scripts.Machine
 from components.scriptcalls.Machine.nameChange import name_change_machine
