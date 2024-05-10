@@ -21,7 +21,7 @@ def clear_notepad(textbox):
 
 def open_notepad(self):
     notepad = customtkinter.CTk()
-    notepad.title("Notepad")
+    notepad.title("Notepad (Save on Close)")
     notepad.geometry(f"{800}x{600}")
     notepad.resizable(False, False)
     notepad.iconbitmap("powermodule.ico")
