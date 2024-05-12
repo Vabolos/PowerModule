@@ -26,7 +26,7 @@ def open_notepad(self):
     notepad.resizable(False, False)
     notepad.iconbitmap("powermodule.ico")
 
-    textbox = customtkinter.CTkTextbox(notepad, width=750, height=500)
+    textbox = customtkinter.CTkTextbox(notepad, width=750, height=500, wrap="word")
     textbox.grid(row=0, column=0, padx=20, pady=20)
     textbox.grid_rowconfigure(0, weight=1)
     textbox.grid_columnconfigure(0, weight=1)
