@@ -29,6 +29,7 @@ from components.scriptcalls.Machine.ipReleaseRenew import ip_release_renew
 from components.scriptcalls.Machine.diskCleaner import disk_cleaner_machine
 from components.scriptcalls.Machine.batteryReport import battery_report
 from components.scriptcalls.Machine.flushDNS import flush_dns_machine
+from components.scriptcalls.Machine.clearTempFiles import clear_temp_files
 
 # scripts.Server
 from components.scriptcalls.Server.nameChange import name_change_server
