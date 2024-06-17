@@ -16,9 +16,6 @@ class App(customtkinter.CTk):
         self.geometry(f"{1200}x{680}")
         self.resizable(False, False)
 
-        # configure window icon
-        self.iconbitmap("powermodule.ico")
-
         # configure grid layout (3x3)
         self.grid_columnconfigure(1, weight=1)
         self.grid_rowconfigure(1, weight=1)
@@ -28,7 +25,6 @@ class App(customtkinter.CTk):
             self.textbox.configure(state="normal")
             self.textbox.insert("end", input_str)
             self.textbox.configure(state="disabled")
-        sys.stdout.write = redirector
 
         # create sidebar frame with widgets
         self.sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
