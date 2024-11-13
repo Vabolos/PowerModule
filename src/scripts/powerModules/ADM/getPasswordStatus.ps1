@@ -20,7 +20,7 @@ $totalDays = [regex]::Match($maxPassAge.Days.ToString(), '\d+').Value
 # Check the value of "Password never expires" attribute
 $passwordNeverExpires = $adUser.PasswordNeverExpires
 
-if ($daysDifference -eq $totalDays) { 
+if ($daysDifference -eq $totalDays) {
     Write-Host "Password change required"
 }
 elseif ($daysDifference -gt $totalDays) {
