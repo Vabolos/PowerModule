@@ -149,6 +149,8 @@ class App(customtkinter.CTk):
                                 command=lambda: list_lockedout_users_server(self)).pack(pady=5)
         customtkinter.CTkButton(master=self.scrollable_frame, text="Flush DNS",
                                 command=lambda: flush_dns_server(self)).pack(pady=5)
+        customtkinter.CTkButton(master=self.scrollable_frame, text="Unlock Locked Users",
+                                command=lambda: unlock_locked_users(self)).pack(pady=5)
 
         # Update the geometry of the frame to make it expand with the window
         self.tabview.tab("ADM").update_idletasks()
