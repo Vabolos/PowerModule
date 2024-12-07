@@ -10,7 +10,7 @@ from tkinter import END
 
 class PowerShellCompleter(Completer):
     def __init__(self):
-        self.commands = ["cls", "dir", "cd", "echo"]
+        self.commands = ["cls", "dir", "cd", "echo", "exit", "powershell"]
 
     def get_completions(self, document, complete_event):
         word_before_cursor = document.get_word_before_cursor(WORD=True)
@@ -34,6 +34,10 @@ class AppFunctions:
             self.app_instance.textbox.delete("0.0", "end")
             self.app_instance.entry.delete(0, "end")
             return
+        
+        if command.strip().lower() == 'exit':
+            # Close the application
+            self.app_instance.master.destroy()
 
         if command.strip().lower() == 'powershell':  # Open PowerShell console
             self.start_powershell_console()
