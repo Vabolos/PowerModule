@@ -32,13 +32,13 @@ class App(customtkinter.CTk):
         self.sidebar_frame.grid_rowconfigure(4, weight=1)
         self.logo_label = customtkinter.CTkLabel(self.sidebar_frame, text="Power Module", font=customtkinter.CTkFont(size=20, weight="bold"))
         self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))
-        self.sidebar_button_1 = customtkinter.CTkButton(self.sidebar_frame, 
+        self.sidebar_button_1 = customtkinter.CTkButton(self.sidebar_frame,
                                                         command=lambda: open_github_repository(self), text="GitHub Repository")
         self.sidebar_button_1.grid(row=1, column=0, padx=20, pady=10)
-        self.sidebar_button_2 = customtkinter.CTkButton(self.sidebar_frame, 
+        self.sidebar_button_2 = customtkinter.CTkButton(self.sidebar_frame,
                                                         command=lambda: open_discord_server(self), text="Support Discord")
         self.sidebar_button_2.grid(row=2, column=0, padx=20, pady=10)
-        self.sidebar_button_3 = customtkinter.CTkButton(self.sidebar_frame, 
+        self.sidebar_button_3 = customtkinter.CTkButton(self.sidebar_frame,
                                                         command=lambda: import_script(self), text="Import script")
         self.sidebar_button_3.grid(row=3, column=0, padx=20, pady=10)
         self.appearance_mode_label = customtkinter.CTkLabel(self.sidebar_frame, text="Appearance Mode:", anchor="w")
@@ -60,7 +60,7 @@ class App(customtkinter.CTk):
         self.functions = app_functions  # Assign the functions instance to the App class
         self.process = None
 
-        self.main_button_1 = customtkinter.CTkButton(self.master, 
+        self.main_button_1 = customtkinter.CTkButton(self.master,
                                                      command=lambda: execute_script(self), text="Execute script")
         self.main_button_1.grid(row=3, column=3, padx=(20, 20), pady=(20, 20), sticky="nsew")
 
@@ -117,7 +117,7 @@ class App(customtkinter.CTk):
                                 command=lambda: setup_IPv4(self)).grid(row=2, column=0, padx=20, pady=5)
         customtkinter.CTkButton(master=self.scrollable_frame, text="Disk Cleaner",
                                 command=lambda: disk_cleaner_server()).grid(row=3, column=0, padx=20, pady=5)
-        
+
         # Update the geometry of the frame to make it expand with the window
         self.tabview.tab("Server").update_idletasks()
         self.scrollable_frame.config(width=self.tabview.tab("Server").winfo_width(), height=self.tabview.tab("Server").winfo_height())
@@ -159,16 +159,16 @@ class App(customtkinter.CTk):
         self.tabview.grid(row=2, column=3, padx=(20, 20), pady=(10, 0), sticky="nsew")
         self.tabview.add("Actions")
         self.tabview.tab("Actions").grid_columnconfigure(0, weight=1)
-        
+
 
         # Action buttons
-        customtkinter.CTkButton(master=self.tabview.tab("Actions"), text="Clear console", 
+        customtkinter.CTkButton(master=self.tabview.tab("Actions"), text="Clear console",
                                 command=lambda: clear_console(self)).grid(row=1, column=0, padx=20, pady=(5, 10))
-        customtkinter.CTkButton(master=self.tabview.tab("Actions"), text="Copy to clipboard", 
+        customtkinter.CTkButton(master=self.tabview.tab("Actions"), text="Copy to clipboard",
                                 command=lambda: copy_to_clipboard(self)).grid(row=0, column=0, padx=20, pady=(5, 10))
-        customtkinter.CTkButton(master=self.tabview.tab("Actions"), text="Console Input Tester", 
+        customtkinter.CTkButton(master=self.tabview.tab("Actions"), text="Console Input Tester",
                                 command=lambda: open_input_dialog_event(self)).grid(row=2, column=0, padx=20, pady=(5, 10))
-        customtkinter.CTkButton(master=self.tabview.tab("Actions"), text="Restart machine", 
+        customtkinter.CTkButton(master=self.tabview.tab("Actions"), text="Restart machine",
                                 command=lambda: restart_machine(self)).grid(row=3, column=0, padx=20, pady=(5, 10))
         customtkinter.CTkButton(master=self.tabview.tab("Actions"), text="Open notepad",
                                 command=lambda: open_notepad(self)).grid(row=4, column=0, padx=20, pady=(5, 10))
