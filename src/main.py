@@ -4,6 +4,7 @@ import customtkinter
 import sys
 
 from customImporting import *
+from buttonImporting import *
 
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
@@ -83,20 +84,7 @@ class App(customtkinter.CTk):
         self.scrollable_frame.grid_rowconfigure(0, weight=1)
 
         # Adding "Machine" buttons
-        customtkinter.CTkButton(master=self.scrollable_frame, text="Change Name",
-                                command=lambda: name_change_machine(self)).grid(row=0, column=0, padx=20, pady=(10, 5))
-        customtkinter.CTkButton(master=self.scrollable_frame, text="Add to Domain",
-                                command=lambda: add_to_domain_machine(self)).grid(row=1, column=0, padx=20, pady=5)
-        customtkinter.CTkButton(master=self.scrollable_frame, text="Release/Renew IP",
-                                command=lambda: ip_release_renew(self)).grid(row=2, column=0, padx=20, pady=5)
-        customtkinter.CTkButton(master=self.scrollable_frame, text="Disk Cleaner",
-                                command=lambda: disk_cleaner_machine(self)).grid(row=3, column=0, padx=20, pady=5)
-        customtkinter.CTkButton(master=self.scrollable_frame, text="Get Battery Report",
-                                command=lambda: battery_report(self)).grid(row=4, column=0, padx=20, pady=5)
-        customtkinter.CTkButton(master=self.scrollable_frame, text="Flush DNS",
-                                command=lambda: flush_dns_machine(self)).grid(row=5, column=0, padx=20, pady=5)
-        customtkinter.CTkButton(master=self.scrollable_frame, text="Clear Temp Files",
-                                command=lambda: clear_temp_files(self)).grid(row=6, column=0, padx=20, pady=5)
+        create_machine_buttons(self.scrollable_frame)
 
         # Adding "Server" tab
         self.tabview.add("Server")
@@ -109,14 +97,7 @@ class App(customtkinter.CTk):
         self.scrollable_frame.grid_rowconfigure(0, weight=1)
 
         # Adding "Server" buttons
-        customtkinter.CTkButton(master=self.scrollable_frame, text="Change Name",
-                                command=lambda: name_change_server(self)).grid(row=0, column=0, padx=20, pady=(10, 5))
-        customtkinter.CTkButton(master=self.scrollable_frame, text="Add to Domain",
-                                command=lambda: add_to_domain_server(self)).grid(row=1, column=0, padx=20, pady=5)
-        customtkinter.CTkButton(master=self.scrollable_frame, text="Setup IPv4",
-                                command=lambda: setup_IPv4(self)).grid(row=2, column=0, padx=20, pady=5)
-        customtkinter.CTkButton(master=self.scrollable_frame, text="Disk Cleaner",
-                                command=lambda: disk_cleaner_server()).grid(row=3, column=0, padx=20, pady=5)
+        create_server_buttons(self.scrollable_frame)
 
         # Update the geometry of the frame to make it expand with the window
         self.tabview.tab("Server").update_idletasks()
@@ -133,24 +114,7 @@ class App(customtkinter.CTk):
         self.scrollable_frame.grid_rowconfigure(0, weight=1)
 
         # Script buttons (Active Directory Manager)
-        customtkinter.CTkButton(master=self.scrollable_frame, text="Get Members AD Group",
-                                command=lambda: get_ad_group_member_server(self)).pack(pady=5)
-        customtkinter.CTkButton(master=self.scrollable_frame, text="Get Groups Member Of",
-                                command=lambda: get_group_member_of_server(self)).pack(pady=5)
-        customtkinter.CTkButton(master=self.scrollable_frame, text="Export CSV",
-                                command=lambda: export_csv_server(self)).pack(pady=5)
-        customtkinter.CTkButton(master=self.scrollable_frame, text="Copy Member Of",
-                                command=lambda: copy_member_of_server(self)).pack(pady=5)
-        customtkinter.CTkButton(master=self.scrollable_frame, text="Get Password Status",
-                                command=lambda: get_password_status_server(self)).pack(pady=5)
-        customtkinter.CTkButton(master=self.scrollable_frame, text="List Disabled Users",
-                                command=lambda: list_disabled_users_server(self)).pack(pady=5)
-        customtkinter.CTkButton(master=self.scrollable_frame, text="List Locked Users",
-                                command=lambda: list_lockedout_users_server(self)).pack(pady=5)
-        customtkinter.CTkButton(master=self.scrollable_frame, text="Flush DNS",
-                                command=lambda: flush_dns_server(self)).pack(pady=5)
-        customtkinter.CTkButton(master=self.scrollable_frame, text="Unlock Locked Users",
-                                command=lambda: unlock_locked_users(self)).pack(pady=5)
+        create_adm_buttons(self.scrollable_frame)
 
         # Update the geometry of the frame to make it expand with the window
         self.tabview.tab("ADM").update_idletasks()
