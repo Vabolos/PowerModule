@@ -35,9 +35,9 @@ class AppFunctions:
             self.app_instance.entry.delete(0, "end")
             return
         
-        if command.strip().lower() == 'exit':
-            # Close the application
-            self.app_instance.master.destroy()
+        # if command.strip().lower() == 'exit':
+        #     # close the main.py file
+        #     self.app_instance.master.destroy()
 
         if command.strip().lower() == 'powershell':  # Open PowerShell console
             self.start_powershell_console()
