@@ -21,6 +21,7 @@ from components.scriptcalls.ADM.getPasswordStatus import get_password_status_ser
 from components.scriptcalls.ADM.listDisabledUsers import list_disabled_users_server
 from components.scriptcalls.ADM.listLockedOutUsers import list_lockedout_users_server
 from components.scriptcalls.ADM.flushDNS import flush_dns_server
+from components.scriptcalls.ADM.UnlockLockedUsers import unlock_locked_users
 
 # scripts.Machine
 from components.scriptcalls.Machine.nameChange import name_change_machine
