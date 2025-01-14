@@ -65,7 +65,3 @@ For more detailed information and advanced usage, check out our [documentation](
 ## 🌟 Support
 
 If you like PowerModule, please give us a ⭐ on [GitHub](https://github.com/vabolos/powermodule)! Your support means a lot to us.
-
----
-
-Feel free to customize further and add more examples, documentation links, or any other information that you think will make the README even better!
